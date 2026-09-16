@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#f8fafc" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>fly calm</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      position: fixed;
+      inset: 0;
+      background: #f8fafc;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      user-select: none;
+    }
+    .font-serif-title {
+      font-family: 'Newsreader', Georgia, serif;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    .beacon-pulse {
+      animation: beaconPulse 2s infinite ease-out;
+    }
+    @keyframes beaconPulse {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.6); opacity: 0; }
+      100% { transform: scale(0.9); opacity: 0; }
+    }
+    .breathing-ring {
+      animation: breathPaced 16s infinite ease-in-out;
+      transform-origin: center center;
+    }
+    @keyframes breathPaced {
+      0% { transform: scale(0.85); opacity: 0.7; }
+      25% { transform: scale(1.12); opacity: 1; }
+      50% { transform: scale(1.12); opacity: 1; }
+      75% { transform: scale(0.85); opacity: 0.7; }
+      100% { transform: scale(0.85); opacity: 0.7; }
+    }
+    
+
+    /* FULLSCREEN MOBILE CONTAINER */
+    #mobileAppShell {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100% !important;
+      height: 100dvh !important;
+      overflow: hidden !important;
+      background-color: #f8fafc;
+    }
+
+    /* ALL SCREENS VIEWPORT: Occupies the full viewport */
+    #mobileScreensViewport {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+    }
+
+    /* INDIVIDUAL SCREENS: Scroll smoothly inside viewport */
+    /* 140px bottom padding guarantees every screen's lowest content scrolls completely above the fixed dock! */
+    .screen-view {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      background-color: #f8fafc;
+      padding: 16px 16px 140px 16px !important;
+      box-sizing: border-box !important;
+    }
+
+    /* ROCK-SOLID FIXED BOTTOM DOCK (ANCHORED DIRECTLY TO BOTTOM OF VIEWPORT) */
+    #mobileBottomDock {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100vw !important;
+      max-width: 100% !important;
+      z-index: 9999 !important;
+      background: rgba(255, 255, 255, 0.98) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-top: 1px solid #e2e8f0 !important;
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08) !important;
+      padding-top: 12px !important;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+      padding-bottom: max(12px, env(safe-area-inset-bottom, 12px)) !important;
+      box-sizing: border-box !important;
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc]">
+
+  <div id="mobileAppShell">
+
+    <!-- ALL APPLICATION SCREENS (INDEPENDENT SCROLLING CONTAINERS) -->
+    <div id="mobileScreensViewport">
+<!-- ============================================== -->
+        <!-- SCREEN 1: HOME (FLY CALM)                       -->
+        <!-- ============================================== -->
+        <div id="screen-home" class="screen-view flex-1 flex flex-col justify-between p-5 overflow-y-auto no-scrollbar">
+          <div>
+            <!-- Top App Header inside Phone -->
+            <div class="flex items-center justify-between pb-2">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-sky-500" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                <span class="text-base font-bold text-slate-800 tracking-tight">fly calm</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span id="homeFlightBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+                  RO391 &bull; OTP &rarr; CDG
+                </span>
+                <!-- In-App Menu Button (Opens In-Phone Drawer) -->
+                <button onclick="toggleInAppMenu()" title="Open App Menu" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 flex items-center justify-center text-slate-700 transition active:scale-95">
+                  <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Titles -->
+            <div class="mt-1">
+              <div class="text-[10px] font-bold tracking-widest text-slate-400 uppercase">Your Flight Companion</div>
+              <h1 class="font-serif-title text-3xl font-medium text-slate-900 leading-tight mt-0.5">
+                Flying,<br>at your pace.
+              </h1>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                A little support for every part of your journey.
+              </p>
+            </div>
+
+            <!-- HERO IMAGE: REAL USER WING ARTWORK -->
+            <div class="my-3 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative h-32 bg-slate-100">
+              <img src="/assets/img/hero_home_wing.png" alt="Airplane wing over green landscape" class="w-full h-full object-cover object-center" />
+            </div>
+
+            <!-- FEATURED CARD: LIVE FLIGHT MAP PREVIEW -->
+            <div onclick="goToScreen('flightmap')" class="mb-3 p-3 rounded-2xl bg-gradient-to-br from-sky-500/10 via-sky-50 to-white border border-sky-200/80 shadow-sm cursor-pointer hover:border-sky-400 active:scale-[0.99] transition relative overflow-hidden">
+              <div class="flex items-center justify-between mb-1.5">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span class="text-xs font-bold text-slate-800">In Flight &bull; Live Radar</span>
+                </div>
+                <span class="text-[10px] font-bold text-sky-400 bg-sky-100/60 px-2 py-0.5 rounded-full">Open Radar &rarr;</span>
+              </div>
+
+              <!-- Mini flight track summary -->
+              <div class="flex items-center justify-between text-xs py-0.5">
+                <div>
+                  <div class="font-extrabold text-slate-900">OTP (Bucharest)</div>
+                  <div class="text-[9px] text-slate-500">Departed 11:45</div>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="text-[9px] font-mono font-bold text-sky-700">FL370 &bull; 840 km/h</div>
+                  <div class="w-16 h-1 bg-slate-200 rounded-full my-0.5 relative overflow-hidden">
+                    <div class="bg-sky-500 h-full w-[60%]"></div>
+                  </div>
+                  <div class="text-[8px] text-emerald-600 font-semibold">Smooth, calm air</div>
+                </div>
+                <div class="text-right">
+                  <div class="font-extrabold text-slate-900">CDG (Paris)</div>
+                  <div class="text-[9px] text-slate-500">Arrives 14:00</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3 Primary Navigation Cards (Exact from Reference Screenshot) -->
+            <div class="space-y-2">
+              <button onclick="goToScreen('before')" class="w-full p-3 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-slate-300 active:scale-[0.99] transition flex items-center justify-between text-left">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-xl bg-sky-50 flex items-center justify-center text-sky-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">Before you fly</div>
+                    <div class="text-[11px] text-slate-500">Get familiar with the journey</div>
+                  </div>
+                </div>
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+
+              <button onclick="goToScreen('flightmap')" class="w-full p-3 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-slate-300 active:scale-[0.99] transition flex items-center justify-between text-left">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-xl bg-sky-50 flex items-center justify-center text-sky-400">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">On board (Live Flight Hub)</div>
+                    <div class="text-[11px] text-slate-500">Radar, Horizon, Sounds &amp; Copilot</div>
+                  </div>
+                </div>
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+
+              <button onclick="goToScreen('landing')" class="w-full p-3 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:border-slate-300 active:scale-[0.99] transition flex items-center justify-between text-left">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-xl bg-sky-50 flex items-center justify-center text-sky-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">After landing</div>
+                    <div class="text-[11px] text-slate-500">Take a moment to reflect</div>
+                  </div>
+                </div>
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+
+            <!-- Quick Access Cards for Audio Library & Copilot -->
+            <div class="grid grid-cols-2 gap-2 mt-2">
+              <button onclick="goToScreen('audio')" class="p-2.5 rounded-2xl bg-white border border-slate-200/80 text-left hover:border-slate-300 transition">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+                  <svg class="w-3.5 h-3.5 text-sky-400 shrink-0 inline-block -mt-0.5 mr-1.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 18v-6a9 9 0 0118 0v6M3 18a3 3 0 003 3h1a1 1 0 001-1v-4a1 1 0 00-1-1H4a1 1 0 00-1 1zm18 0a3 3 0 01-3 3h-1a1 1 0 01-1-1v-4a1 1 0 011-1h3a1 1 0 011 1z"/></svg>Audio Library
+                </div>
+                <div class="text-[10px] text-slate-500 mt-0.5">Calm guides &amp; audio</div>
+              </button>
+
+              <button onclick="goToScreen('flightmap'); toggleMapMode('copilot');" class="p-2.5 rounded-2xl bg-white border border-slate-200/80 text-left hover:border-slate-300 transition">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+                  <svg class="w-3.5 h-3.5 text-sky-400 shrink-0 inline-block -mt-0.5 mr-1.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path stroke-linecap="round" d="M5 21v-2a7 7 0 0114 0v2M8 3h8"/></svg>Ask Copilot
+                </div>
+                <div class="text-[10px] text-slate-500 mt-0.5">Sudden noises &amp; bumps</div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 2: IN FLIGHT MASTER HUB                 -->
+        <!-- ============================================== -->
+        <div id="screen-flightmap" class="screen-view hidden flex-1 flex flex-col justify-between p-4 overflow-y-auto no-scrollbar bg-[#f8fafc]">
+          <div>
+            <!-- In-Flight Hub Header with Back Button and Mode Switcher -->
+            <div class="flex items-center justify-between pb-2 border-b border-slate-200/60 mb-2.5">
+              <button onclick="goToScreen('home')" class="flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-slate-900">
+                <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                In Flight Hub
+              </button>
+              <button onclick="toggleInAppMenu()" class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs">
+                <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+              </button>
+            </div>
+
+            <!-- In-Flight 4-Way Subtab Selector (Radar, Horizon, Sounds, Copilot) -->
+            <div class="grid grid-cols-4 gap-1 mb-3 bg-slate-100 p-1 rounded-2xl text-[11px] font-bold text-center">
+              <button onclick="toggleMapMode('corridor')" id="btn-mode-corridor" class="py-2 px-1 rounded-xl bg-[#1e293b] text-white shadow-xs transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 shrink-0 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 3a9 9 0 019 9M12 12l5-5"/></svg>
+                <span>Radar</span>
+              </button>
+              <button onclick="toggleMapMode('horizon')" id="btn-mode-horizon" class="py-2 px-1 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 shrink-0 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M3 12h6m6 0h6M12 7v3m-2 2h4"/></svg>
+                <span>Horizon</span>
+              </button>
+              <button onclick="toggleMapMode('sounds')" id="btn-mode-sounds" class="py-2 px-1 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 shrink-0 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                <span>Sounds</span>
+              </button>
+              <button onclick="toggleMapMode('copilot')" id="btn-mode-copilot" class="py-2 px-1 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 shrink-0 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path stroke-linecap="round" d="M5 21v-2a7 7 0 0114 0v2M8 3h8"/></svg>
+                <span>Copilot</span>
+              </button>
+            </div>
+
+            <!-- VIEW A: INTERACTIVE FLIGHT RADAR / MOVING MAP -->
+            <div id="map-view-corridor" class="space-y-2.5">
+              
+              <!-- SVG Flight Map -->
+              <div class="rounded-3xl border border-slate-200/90 shadow-sm bg-gradient-to-b from-[#e0f2fe] via-[#f0f9ff] to-[#f8fafc] p-3 relative overflow-hidden h-64 flex flex-col justify-between">
+                
+                <!-- Map Top Overlay: Flight Level & Speed -->
+                <div class="flex items-center justify-between text-[11px] font-mono z-10">
+                  <div class="bg-white/80 backdrop-blur px-2 py-1 rounded-lg border border-slate-200/60 shadow-xs">
+                    <span class="text-slate-400">ALT:</span> <strong id="mapAlt" class="text-sky-700">37,000 ft</strong>
+                  </div>
+                  <div class="bg-white/80 backdrop-blur px-2 py-1 rounded-lg border border-slate-200/60 shadow-xs">
+                    <span class="text-slate-400">GS:</span> <strong id="mapSpeed" class="text-slate-800">840 km/h</strong>
+                  </div>
+                  <div class="bg-white/80 backdrop-blur px-2 py-1 rounded-lg border border-slate-200/60 shadow-xs">
+                    <span class="text-slate-400">REM:</span> <strong id="mapTime" class="text-emerald-700">1h 14m</strong>
+                  </div>
+                </div>
+
+                <!-- Vector Map of Airway Corridor (OTP -> BUD -> VIE -> MUC -> CDG) -->
+                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 360 250">
+                  <path d="M 40 40 Q 90 20 180 30 T 320 60 L 330 180 Q 250 220 120 210 Z" fill="#f1f5f9" opacity="0.6" />
+                  <path d="M 280 180 Q 320 150 350 200" stroke="#cbd5e1" stroke-width="1" fill="none" />
+                  <path d="M 120 70 Q 150 120 100 170" stroke="#cbd5e1" stroke-width="1" fill="none" />
+
+                  <!-- Great-Circle Airway Corridor (Dashed Path) -->
+                  <path id="airwayPath" d="M 310 190 Q 180 110 50 80" fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="4 4" stroke-linecap="round" />
+                  
+                  <!-- Completed Flight Trail (Solid Sky Blue) -->
+                  <path id="completedTrail" pathLength="100" d="M 310 190 Q 180 110 50 80" fill="none" stroke="#0284c7" stroke-width="3.5" stroke-linecap="round" style="stroke-dasharray: 100 100; stroke-dashoffset: 42;" />
+
+                  <!-- Calm Air Weather Zones (Green Safe Zones) -->
+                  <circle cx="231" cy="146" r="20" fill="#10b981" opacity="0.12" />
+                  <circle cx="180" cy="123" r="24" fill="#10b981" opacity="0.12" />
+                  
+                  <!-- Minor High-Altitude Jetstream Chop Zone (Soft Amber Warning) -->
+                  <circle cx="129" cy="102" r="16" fill="#f59e0b" opacity="0.18" />
+
+                  <!-- Dynamic Waypoints Group -->
+                  <g id="mapWaypointsGroup">
+                    <circle cx="310" cy="190" r="5" fill="#0284c7" stroke="#ffffff" stroke-width="2" />
+                    <text x="310" y="208" text-anchor="middle" font-size="9" font-weight="bold" fill="#334155">OTP (Bucharest)</text>
+                    <circle cx="231" cy="146" r="3" fill="#64748b" />
+                    <text x="231" y="136" text-anchor="middle" font-size="8" fill="#64748b">BUDAPEST</text>
+                    <circle cx="180" cy="123" r="3" fill="#64748b" />
+                    <text x="180" y="113" text-anchor="middle" font-size="8" fill="#64748b">VIENNA</text>
+                    <circle cx="129" cy="102" r="3" fill="#64748b" />
+                    <text x="129" y="92" text-anchor="middle" font-size="8" fill="#64748b">MUNICH</text>
+                    <circle cx="50" cy="80" r="5" fill="#0284c7" stroke="#ffffff" stroke-width="2" />
+                    <text x="50" y="70" text-anchor="middle" font-size="9" font-weight="bold" fill="#334155">CDG (Paris)</text>
+                  </g>
+
+                  <!-- MOVING AIRPLANE ICON (PINNED ANALYTICALLY ON BEZIER CURVE) -->
+                  <g id="airplaneIconGroup" transform="translate(159.2, 114.0) rotate(-68.6)">
+                    <circle cx="0" cy="0" r="16" fill="#38bdf8" class="beacon-pulse" />
+                    <circle cx="0" cy="0" r="10" fill="#0284c7" opacity="0.4" />
+                    <path d="M 0 -10 L 2 -3 L 11 1 L 11 3 L 2 2 L 2 7 L 5 9 L 5 11 L 0 10 L -5 11 L -5 9 L -2 7 L -2 2 L -11 3 L -11 1 L -2 -3 Z" fill="#0f172a" stroke="#ffffff" stroke-width="0.8" />
+                  </g>
+                </svg>
+
+                <!-- Map Bottom Bar: Current Region & Air Status -->
+                <div class="flex items-center justify-between text-[10px] bg-white/90 backdrop-blur px-2.5 py-1.5 rounded-xl border border-slate-200/70 z-10">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="text-slate-700 font-semibold" id="mapZoneStatus">Smooth flight &bull; Over Austria</span>
+                  </div>
+                  <span class="text-slate-500 font-mono" id="mapDistRemaining">640 km to Paris</span>
+                </div>
+              </div>
+
+              <!-- SIMULATOR SCRUBBER SLIDER WITH AUTO-FLIGHT CONTROLS -->
+              <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <div class="flex items-center gap-1.5">
+                    <button id="btnAutoFlight" onclick="toggleAutoFlight()" class="px-2 py-0.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold text-[10px] flex items-center gap-1 shadow-xs transition active:scale-95">
+                      <span id="autoFlightIcon">⏸</span> <span id="autoFlightText">Live</span>
+                    </button>
+                    <span class="font-bold text-slate-800">Flight Simulation</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <button onclick="setFlightSpeed(1)" id="spd-1" class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-sky-100 text-sky-800">1x</button>
+                    <button onclick="setFlightSpeed(5)" id="spd-5" class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">5x</button>
+                    <button onclick="setFlightSpeed(20)" id="spd-20" class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">20x</button>
+                    <span id="flightPercentLabel" class="font-mono text-sky-700 font-bold ml-1 text-xs">58% complete</span>
+                  </div>
+                </div>
+                
+                <input type="range" id="flightProgressSlider" min="0" max="100" value="58" oninput="manualFlightProgress(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600" />
+                
+                <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                  <span>0% Takeoff (OTP)</span>
+                  <span>50% Cruise (VIE)</span>
+                  <span>100% Landing (CDG)</span>
+                </div>
+              </div>
+
+              <!-- LIVE FLIGHT TELEMETRY METRICS GRID -->
+              <div class="grid grid-cols-2 gap-2">
+                <div class="p-2.5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                  <div class="text-[10px] font-bold text-slate-400 uppercase">Current Phase</div>
+                  <div id="flightPhaseName" class="text-xs font-black text-slate-800 mt-0.5">Smooth Cruise</div>
+                  <div id="flightPhaseDesc" class="text-[10px] text-slate-500 mt-0.5 leading-snug">Engine thrust optimized at 37,000 ft.</div>
+                </div>
+
+                <div class="p-2.5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                  <div class="text-[10px] font-bold text-slate-400 uppercase">Cabin Pressure</div>
+                  <div id="flightCabinAlt" class="text-xs font-black text-sky-700 mt-0.5">7,200 ft (Mountain)</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5 leading-snug">Descent begins in ~22 minutes.</div>
+                </div>
+              </div>
+
+              <!-- Reassurance Note from Captain with Voice Briefing -->
+              <div class="p-2.5 rounded-2xl bg-sky-50 border border-sky-200/80 text-[11px] text-slate-700 flex items-start justify-between gap-2 shadow-xs">
+                <div class="flex items-start gap-2">
+                  <span class="w-5 h-5 rounded-full bg-sky-50 text-sky-400 flex items-center justify-center shrink-0 mt-0.5"><svg class="w-3 h-3 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path stroke-linecap="round" d="M5 21v-2a7 7 0 0114 0v2M8 3h8"/></svg></span>
+                  <div class="leading-relaxed">
+                    <strong class="text-sky-900">Captain Alexandru:</strong>
+                    <span id="captainBriefingText">"The aircraft is following our approved airway corridor. Even with light bumps, vertical movement is under 3 meters."</span>
+                  </div>
+                </div>
+                <button onclick="playCaptainBriefing()" class="shrink-0 px-2 py-1.5 rounded-xl bg-[#1e293b] text-white text-[10px] font-bold hover:bg-slate-800 flex items-center gap-1 shadow-sm active:scale-95 transition">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg><span>Listen</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- VIEW B: ARTIFICIAL HORIZON & VIRTUAL WINDOW TOGGLE -->
+            <div id="map-view-horizon" class="hidden space-y-3 text-center">
+              
+              <!-- Sub-selector for Horizon vs Virtual Window -->
+              <div class="flex justify-center gap-2 mb-2">
+                <button onclick="toggleHorizonSubTab('pfd')" id="subtab-pfd" class="px-3 py-1 rounded-full text-xs font-bold bg-[#1e293b] text-white">Attitude Horizon (PFD)</button>
+                <button onclick="toggleHorizonSubTab('window')" id="subtab-window" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-600">Virtual Window</button>
+              </div>
+
+              <div id="horizon-pfd-section" class="space-y-3">
+                <h1 class="font-serif-title text-2xl font-medium text-slate-900 leading-snug">
+                  Artificial Horizon &bull; Banking Angle
+                </h1>
+                <p class="text-xs text-slate-500 -mt-1">Proof that the aircraft is stable even when your inner ear feels otherwise.</p>
+
+                <!-- Horizon Gyro Display -->
+                <div class="relative w-48 h-48 mx-auto my-3 rounded-full border-4 border-slate-300 overflow-hidden shadow-inner bg-slate-900">
+                  <div id="gyroSky" class="absolute inset-0 bg-gradient-to-b from-[#38bdf8] to-[#bae6fd] transition-transform duration-300" style="clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);"></div>
+                  <div id="gyroGround" class="absolute inset-0 bg-gradient-to-b from-[#a16207] to-[#713f12] transition-transform duration-300" style="clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);"></div>
+                  <div class="absolute inset-x-0 top-1/2 h-[2px] bg-white shadow z-10"></div>
+                  <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                    <div class="w-16 h-1.5 bg-yellow-400 rounded-full border border-slate-900 flex items-center justify-center">
+                      <div class="w-2.5 h-2.5 rounded-full bg-yellow-400 border border-slate-900 -mt-2"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm text-left">
+                  <div class="flex items-center justify-between text-xs font-bold mb-1">
+                    <span id="bankAngleReadout" class="text-slate-800">Bank: 0° (Wings Level &amp; Stable)</span>
+                    <span class="text-emerald-600">Stable</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 leading-relaxed">
+                    In normal turns, the aircraft banks up to 20-25°. Due to centrifugal force, liquids in cups do not spill, and your body stays firmly in your seat.
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="simulateBankTurn(18)" class="py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-slate-400">
+                    Simulate Left Turn (18°)
+                  </button>
+                  <button onclick="simulateBankTurn(-18)" class="py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-slate-400">
+                    Simulate Right Turn (18°)
+                  </button>
+                </div>
+              </div>
+
+              <div id="horizon-window-section" class="hidden space-y-3">
+                <h1 class="font-serif-title text-2xl font-medium text-slate-900 leading-snug">
+                  Virtual Window &bull; FL370
+                </h1>
+                <p class="text-xs text-slate-500 -mt-1">A calming visual perspective for aisle and center seats.</p>
+
+                <div class="relative w-48 h-64 mx-auto my-3 rounded-[60px] border-8 border-slate-300 overflow-hidden shadow-2xl bg-sky-300 flex flex-col justify-between">
+                  <div class="absolute inset-0 bg-gradient-to-b from-[#0284c7] via-[#38bdf8] to-[#bae6fd]"></div>
+                  <div class="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/40 blur-md pointer-events-none"></div>
+
+                  <div class="absolute bottom-0 inset-x-0 h-28 overflow-hidden pointer-events-none">
+                    <svg class="w-[200%] h-full animate-[drift_20s_linear_infinite]" viewBox="0 0 400 100" fill="white" opacity="0.85">
+                      <circle cx="40" cy="80" r="40" />
+                      <circle cx="100" cy="70" r="45" />
+                      <circle cx="170" cy="85" r="35" />
+                      <circle cx="240" cy="75" r="40" />
+                      <circle cx="310" cy="70" r="45" />
+                      <circle cx="380" cy="85" r="35" />
+                    </svg>
+                  </div>
+
+                  <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <svg class="w-full h-full" viewBox="0 0 200 260">
+                      <path d="M 200 210 L 40 150 L 50 135 L 200 170 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" />
+                      <path d="M 40 150 L 35 110 L 48 115 L 50 135 Z" fill="#0284c7" />
+                    </svg>
+                  </div>
+
+                  <div class="absolute inset-x-4 bottom-2 h-1 rounded-full bg-white/30 backdrop-blur pointer-events-none"></div>
+                </div>
+
+                <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm text-left">
+                  <div class="flex items-center justify-between text-xs font-bold mb-1 text-slate-800">
+                    <span>Active Lift: 100% Solid</span>
+                    <span class="text-emerald-600">Laminar Air</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 leading-relaxed">
+                    The wings ride on dense air just as a boat floats on water. Even when invisible, at 840 km/h air molecules provide continuous physical support.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- VIEW C: SOUNDS & G-METER VIEW -->
+            <div id="map-view-sounds" class="hidden space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h1 class="font-serif-title text-2xl font-medium text-slate-900 leading-snug">Sounds &amp; G-Meter</h1>
+                  <p class="text-xs text-slate-500">Every noise has an engineered purpose.</p>
+                </div>
+                <div class="flex gap-1 text-[10px] font-bold">
+                  <button onclick="toggleSoundsSubTab('acc')" id="btn-sub-acc" class="px-2.5 py-1 rounded-full bg-[#1e293b] text-white">Sounds</button>
+                  <button onclick="toggleSoundsSubTab('gmet')" id="btn-sub-gmet" class="px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">G-Meter</button>
+                </div>
+              </div>
+
+              <!-- AMBIENT CABIN JET WHITE-NOISE PLAYER -->
+              <div class="p-3 rounded-2xl bg-gradient-to-r from-[#0f172a] to-[#1e293b] text-white flex items-center justify-between shadow-md mb-2">
+                <div class="flex items-center gap-2.5">
+                  <button id="btnAmbientHum" onclick="toggleAmbientHum()" class="w-9 h-9 rounded-full bg-sky-500 hover:bg-sky-400 text-white flex items-center justify-center shrink-0 shadow-sm active:scale-95 transition">
+                    <svg id="ambientPlayIcon" class="w-4 h-4 fill-white text-white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </button>
+                  <div>
+                    <div class="text-xs font-bold flex items-center gap-1.5">
+                      <span>Cabin Jet Engine Hum</span>
+                      <span id="ambientBadge" class="hidden text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">ACTIVE</span>
+                    </div>
+                    <div class="text-[10px] text-slate-300">Continuous soothing brown/pink noise</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="text-[10px] text-sky-300 font-mono" id="ambientVolLabel">80%</span>
+                </div>
+              </div>
+
+              <div id="sounds-accordion-section" class="space-y-2">
+                <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+                  <button onclick="toggleAccordion('acc1')" class="w-full p-2.5 flex items-center justify-between text-left">
+                    <span class="text-xs font-semibold text-slate-800">A rising engine roar</span>
+                    <span id="acc1-icon" class="text-slate-400 text-sm font-bold">+</span>
+                  </button>
+                  <div id="acc1-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                    Pilots test engine power and set takeoff thrust. The engines roar as they push forward to generate lift. Completely routine.
+                    <button onclick="playAircraftSound('engine_roar')" class="mt-2 text-[10px] font-bold text-sky-400 flex items-center gap-1">
+                      <svg class="w-3 h-3 inline-block -mt-0.5 mr-1 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>Listen to engine roar
+                    </button>
+                  </div>
+                </div>
+
+                <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+                  <button onclick="toggleAccordion('acc2')" class="w-full p-2.5 flex items-center justify-between text-left">
+                    <span class="text-xs font-semibold text-slate-800">A thud after liftoff</span>
+                    <span id="acc2-icon" class="text-slate-400 text-sm font-bold">+</span>
+                  </button>
+                  <div id="acc2-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                    That mechanical clunk is the landing gear retracting securely into the aircraft belly. The wheels are locked safely for flight.
+                    <button onclick="playAircraftSound('gear_down')" class="mt-2 text-[10px] font-bold text-sky-400 flex items-center gap-1">
+                      <svg class="w-3 h-3 inline-block -mt-0.5 mr-1 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>Listen to gear retraction
+                    </button>
+                  </div>
+                </div>
+
+                <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+                  <button onclick="toggleAccordion('acc3')" class="w-full p-2.5 flex items-center justify-between text-left">
+                    <span class="text-xs font-semibold text-slate-800">Airbus "dog bark" on ground</span>
+                    <span id="acc3-icon" class="text-slate-400 text-sm font-bold">+</span>
+                  </button>
+                  <div id="acc3-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                    The Power Transfer Unit (PTU) tests hydraulic pressure between systems. It sounds like a barking dog, proving redundant safety is 100% active.
+                    <button onclick="playAircraftSound('airbus_ptu')" class="mt-2 text-[10px] font-bold text-sky-400 flex items-center gap-1">
+                      <svg class="w-3 h-3 inline-block -mt-0.5 mr-1 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>Listen to Airbus PTU pump
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- G-Meter section -->
+              <div id="sounds-gmeter-section" class="hidden space-y-3 text-center">
+                <div class="relative w-44 h-44 mx-auto my-2 rounded-full border-2 border-emerald-400/40 bg-emerald-50/60 flex items-center justify-center shadow-inner">
+                  <div class="absolute w-32 h-32 rounded-full border border-dashed border-emerald-500/40"></div>
+                  <div class="absolute w-20 h-20 rounded-full border border-emerald-500/50"></div>
+                  <div class="absolute w-full h-[1px] bg-emerald-900/10"></div>
+                  <div class="absolute h-full w-[1px] bg-emerald-900/10"></div>
+
+                  <div id="gSphere" class="w-12 h-12 rounded-full bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.6)] flex items-center justify-center text-white font-black text-xs transition-transform duration-100 ease-out z-10">
+                    +0.02G
+                  </div>
+                </div>
+
+                <div class="p-2.5 rounded-2xl bg-white border border-slate-200 shadow-sm text-left text-xs">
+                  <div class="flex items-center justify-between font-bold mb-1">
+                    <span id="gMeterReadout" class="text-emerald-700">Smooth Flight &bull; +0.02 G</span>
+                    <span class="text-[10px] text-slate-400">Wing max: 2.50 G</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500">
+                    Wings flex naturally like a fishing rod to absorb air movements smoothly.
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="triggerBump(0.08)" class="py-2 rounded-xl bg-white border border-slate-200 shadow-sm text-xs font-semibold text-slate-700 hover:border-slate-400">
+                    Light bump (0.08G)
+                  </button>
+                  <button onclick="triggerBump(0.22)" class="py-2 rounded-xl bg-white border border-slate-200 shadow-sm text-xs font-semibold text-slate-700 hover:border-slate-400">
+                    Wind gust (0.22G)
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- VIEW D: ASK THE COPILOT (PANIC SCENARIOS & PILOT ANSWERS) -->
+            <div id="map-view-copilot" class="hidden space-y-3">
+              <div>
+                <h1 class="font-serif-title text-2xl font-medium text-slate-900 leading-snug">
+                  Ask the Copilot
+                </h1>
+                <p class="text-xs text-slate-500">Instant answers from Captain Alexandru for sudden sensations.</p>
+              </div>
+
+              <!-- Filter Category Pills -->
+              <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 text-[10px] font-bold">
+                <button onclick="filterCopilot('all')" id="c-pill-all" class="px-2.5 py-1 rounded-full bg-[#1e293b] text-white shrink-0">All Questions</button>
+                <button onclick="filterCopilot('turb')" id="c-pill-turb" class="px-2.5 py-1 rounded-full bg-slate-200 text-slate-600 shrink-0">Turbulence</button>
+                <button onclick="filterCopilot('thrust')" id="c-pill-thrust" class="px-2.5 py-1 rounded-full bg-slate-200 text-slate-600 shrink-0">Thrust &amp; Turns</button>
+                <button onclick="filterCopilot('safety')" id="c-pill-safety" class="px-2.5 py-1 rounded-full bg-slate-200 text-slate-600 shrink-0">Safety &amp; What-Ifs</button>
+              </div>
+
+              <div class="space-y-2 text-left" id="copilotQuestionsList">
+                <!-- Q1: Thrust Reduction -->
+                <div class="copilot-card p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5" data-cat="thrust">
+                  <div class="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <span>Why did the engines suddenly get quiet?</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 leading-relaxed">
+                    We just crossed acceleration altitude (~1,000 ft). Pilots gently reduce takeoff thrust to continuous climb thrust to optimize fuel and reduce exterior noise. The plane is climbing normally.
+                  </p>
+                  <button onclick="speakReassurance('We just crossed acceleration altitude. Pilots reduce takeoff thrust to continuous climb thrust. Everything is completely normal.')" class="text-[10px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <span>Listen to Captain</span>
+                  </button>
+                </div>
+
+                <!-- Q2: Sudden Bump -->
+                <div class="copilot-card p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5" data-cat="turb">
+                  <div class="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12h3l3-6 4 12 3-8 2 5 3-3h3"/></svg>
+                    <span>What was that bump just now?</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 leading-relaxed">
+                    Our accelerometer measured under 0.10G of vertical motion &mdash; less than walking down two steps on a staircase. Wings are structurally tested to absorb over 2.50G easily.
+                  </p>
+                  <button onclick="speakReassurance('Our accelerometer measured under 0.10G of motion. Wings are structurally tested to absorb over 2.5G. You are entirely safe.')" class="text-[10px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <span>Listen to Captain</span>
+                  </button>
+                </div>
+
+                <!-- Q3: Bank Angle -->
+                <div class="copilot-card p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5" data-cat="thrust">
+                  <div class="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    <span>Why is the plane banking / turning?</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 leading-relaxed">
+                    Airliners routinely bank 20° to 25° to join airway corridors. Because of coordinated turns and centrifugal force, liquid in a cup does not spill and you stay centered in your seat.
+                  </p>
+                  <button onclick="speakReassurance('Airliners routinely bank 20 to 25 degrees to join airway corridors. Centrifugal force keeps your body centered and safe.')" class="text-[10px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <span>Listen to Captain</span>
+                  </button>
+                </div>
+
+                <!-- Q4: Dim Lights -->
+                <div class="copilot-card p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5" data-cat="thrust">
+                  <div class="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    <span>Why did the cabin lights dim?</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 leading-relaxed">
+                    Standard international aviation safety rule: lights are dimmed for takeoff and landing so passenger and crew eyes adapt to ambient light outside.
+                  </p>
+                </div>
+
+                <!-- Q5: Can Turbulence Break the Plane -->
+                <div class="copilot-card p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5" data-cat="turb">
+                  <div class="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span>Can turbulence flip or break an airplane?</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 leading-relaxed">
+                    No commercial airliner in modern aviation has ever been flipped or broken by turbulence. Wings are built from hyper-flexible aerospace alloys engineered to bend over 5 meters (15 feet) and endure forces far beyond anything nature can produce.
+                  </p>
+                  <button onclick="speakReassurance('No commercial airliner has ever been flipped or broken by turbulence. Wings are tested to flex over 15 feet. The aircraft is completely structurally safe.')" class="text-[10px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <span>Listen to Captain</span>
+                  </button>
+                </div>
+
+                <!-- Q6: Sudden Drop Pocket -->
+                <div class="copilot-card p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5" data-cat="turb">
+                  <div class="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                    <span>Why did the plane suddenly feel like it dropped?</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 leading-relaxed">
+                    You crossed a small thermal updraft or downdraft. While your inner ear exaggerates the sensation to feel like a huge drop, flight telemetry data shows the aircraft actually moves vertically less than 2 to 3 feet.
+                  </p>
+                  <button onclick="speakReassurance('You crossed a minor pocket of rising or sinking air. The airplane moved less than three feet. The wings maintain solid continuous lift.')" class="text-[10px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <span>Listen to Captain</span>
+                  </button>
+                </div>
+
+                <!-- Q7: Holding Pattern Circling -->
+                <div class="copilot-card p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5" data-cat="thrust">
+                  <div class="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    <span>Why are we circling in a loop in the air?</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 leading-relaxed">
+                    This is a standard holding pattern. Air Traffic Control holds aircraft in structured racetrack loops to sequence landings smoothly or allow weather to pass. We carry 45+ minutes of mandatory reserve fuel specifically for this.
+                  </p>
+                  <button onclick="speakReassurance('We are in a standard holding pattern for traffic sequencing. Every flight carries over 45 minutes of reserve fuel for this exact routine procedure.')" class="text-[10px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <span>Listen to Captain</span>
+                  </button>
+                </div>
+
+                <!-- Q8: Engine Failure Safety & Gliding -->
+                <div class="copilot-card p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5" data-cat="safety">
+                  <div class="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    <span>What happens if an engine stops working?</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 leading-relaxed">
+                    Twin-engine airliners are certified under ETOPS regulations to climb, cruise, and land completely normally on just one engine. Even if all power were idle, the airplane glides smoothly for over 80 miles, easily reaching diversion airports.
+                  </p>
+                  <button onclick="speakReassurance('Airliners are certified to fly safely on a single engine. Even with no engine thrust, jets glide over 15 miles forward for every mile of altitude.')" class="text-[10px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <span>Listen to Captain</span>
+                  </button>
+                </div>
+
+                <!-- Q9: White Mist from Vents -->
+                <div class="copilot-card p-3 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5" data-cat="safety">
+                  <div class="flex items-center gap-2 text-xs font-bold text-slate-800">
+                    <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                    <span>Why is there white mist coming from overhead vents?</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 leading-relaxed">
+                    That is 100% harmless water vapor—identical to seeing your breath on a cold morning. Air conditioning cooling warm cabin air condenses moisture into visible mist. It is odorless, non-toxic, and disappears in seconds.
+                  </p>
+                  <button onclick="speakReassurance('The white mist is harmless water vapor from the cabin air conditioning. It is 100% safe, odorless, and disappears rapidly.')" class="text-[10px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1">
+                    <svg class="w-3 h-3 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg>
+                    <span>Listen to Captain</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 3: SOS (GROUNDING & BREATHING)          -->
+        <!-- ============================================== -->
+        <div id="screen-sos" class="screen-view hidden flex-1 flex flex-col justify-between p-5 overflow-y-auto no-scrollbar bg-[#f8fafc]">
+          <div>
+            <div class="flex items-center justify-between pb-1">
+              <button onclick="goToScreen('home')" class="w-7 h-7 flex items-center justify-center text-slate-500 hover:text-slate-900 rounded-full hover:bg-slate-200/60">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
+              <span class="text-[10px] font-bold tracking-widest text-slate-400 uppercase">A moment for you</span>
+              <button onclick="toggleInAppMenu()" class="w-7 h-7 flex items-center justify-center text-slate-500 hover:text-slate-900 rounded-full hover:bg-slate-200/60">
+                <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+              </button>
+            </div>
+
+            <!-- Grounding 5-4-3-2-1 -->
+            <div id="sos-grounding-view" class="space-y-2 text-center">
+              <div class="mt-1">
+                <h1 class="font-serif-title text-3xl font-medium text-slate-900 leading-tight">
+                  Let's come back<br>to now.
+                </h1>
+                <p class="text-xs text-slate-500 mt-1">Start with what's around you.</p>
+              </div>
+
+              <!-- REAL AIRPLANE WINDOW WITH SOFT ORGANIC OVAL PORTHOLE (ZERO HARSH SQUARE EDGES) -->
+              <div class="my-4 flex justify-center">
+                <div class="relative w-36 h-48 rounded-[48px] p-2.5 flex items-center justify-center bg-gradient-to-b from-sky-100/50 via-sky-50/15 to-transparent shadow-[0_16px_36px_-8px_rgba(56,189,248,0.22)]">
+                  <img src="/assets/img/hero_sos_window.png" alt="Airplane window" class="w-full h-full object-contain filter drop-shadow-[0_8px_16px_rgba(56,189,248,0.2)]" style="mask-image: radial-gradient(ellipse at center, black 62%, transparent 98%); -webkit-mask-image: radial-gradient(ellipse at center, black 62%, transparent 98%);" />
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <div class="text-6xl font-black text-sky-400 font-serif-title" id="groundingNumber">5</div>
+                <div class="text-sm font-bold text-slate-800" id="groundingTitle">things you can see</div>
+                <p class="text-[11px] text-slate-500 px-4" id="groundingPrompt">Look around the cabin: the tray table, a seat fabric, the air vent.</p>
+                <div class="text-[10px] text-slate-400 italic pt-0.5">Take your time. There's no rush.</div>
+              </div>
+
+              <div class="flex justify-center gap-1.5 my-3">
+                <span id="dot-5" class="w-2 h-2 rounded-full bg-sky-500"></span>
+                <span id="dot-4" class="w-2 h-2 rounded-full bg-slate-300"></span>
+                <span id="dot-3" class="w-2 h-2 rounded-full bg-slate-300"></span>
+                <span id="dot-2" class="w-2 h-2 rounded-full bg-slate-300"></span>
+                <span id="dot-1" class="w-2 h-2 rounded-full bg-slate-300"></span>
+              </div>
+
+              <button onclick="nextGroundingStep()" id="groundingNextBtn" class="w-full py-3.5 rounded-2xl bg-[#1e293b] hover:bg-[#0f172a] text-white text-xs font-semibold shadow-md active:scale-95 transition">
+                Next
+              </button>
+              <div>
+                <button onclick="toggleSosMode('breathing')" class="text-xs text-slate-500 underline hover:text-slate-800">
+                  Try eyes-closed breathing instead
+                </button>
+              </div>
+            </div>
+
+            <!-- Eyes-Closed Breathing -->
+            <div id="sos-breathing-view" class="hidden text-center pt-2">
+              <h1 class="font-serif-title text-2xl font-medium text-slate-900">
+                You can close your eyes.
+              </h1>
+              <p class="text-xs text-slate-500 mt-1 mb-2">Gentle paced breathing guides each breath change.</p>
+
+              <!-- Dedicated Spacious Arena for Expanding Circle (Zero Overlap with Strings) -->
+              <div class="relative w-64 h-56 mx-auto my-3 flex items-center justify-center">
+                <!-- Outer Breathing Ring that Pulses Smoothly -->
+                <div class="absolute w-36 h-36 rounded-full bg-sky-100/80 border-2 border-sky-400 breathing-ring pointer-events-none"></div>
+                <!-- Inner Core Content -->
+                <div class="z-10 text-center pointer-events-none select-none">
+                  <div id="breathPhaseTitle" class="text-2xl font-black text-slate-900 font-serif-title">Inhale</div>
+                  <div id="breathPhaseTimer" class="text-sm font-extrabold text-sky-500 font-mono mt-1 tracking-wider">4s</div>
+                </div>
+              </div>
+
+              <div class="min-h-[42px] flex items-center justify-center px-4">
+                <p id="breathPhaseHint" class="text-xs text-slate-600 max-w-xs mx-auto leading-relaxed">
+                  Breathe in gently through your nose as the circle expands.
+                </p>
+              </div>
+
+              <div class="pt-4">
+                <button onclick="toggleSosMode('grounding')" class="py-2.5 px-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-600 active:scale-95 transition">
+                  &larr; Back to 5-4-3-2-1 exercise
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="h-2"></div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 4: BEFORE YOU FLY (PREPARATION & STAGES)-->
+        <!-- ============================================== -->
+        <div id="screen-before" class="screen-view hidden flex-1 flex flex-col justify-between p-5 overflow-y-auto no-scrollbar">
+          <div>
+            <!-- Header with Back & Drawer -->
+            <div class="flex items-center justify-between pb-2">
+              <button onclick="goToScreen('home')" class="flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-slate-900">
+                <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                Before you fly
+              </button>
+              <button onclick="toggleInAppMenu()" class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs">
+                <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+              </button>
+            </div>
+
+            <h1 class="font-serif-title text-2xl font-medium text-slate-900 leading-snug">
+              A little preparation.<br>More room to breathe.
+            </h1>
+            <p class="text-xs text-slate-500 mt-1">Understanding each phase removes the element of surprise.</p>
+
+            <!-- HERO IMAGE: REAL USER TRAY TABLE ARTWORK -->
+            <div class="my-3 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative h-32 bg-slate-100">
+              <img src="/assets/img/hero_before_tray.png" alt="Tray table with coffee and boarding pass" class="w-full h-full object-cover object-center" />
+            </div>
+
+            <!-- BOARDING PASS SYNC CARD -->
+            <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm mb-3">
+              <div class="flex items-center justify-between mb-1.5">
+                <div class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span id="beforeFlightTitle">TAROM RO391 &bull; Boeing 737-800</span>
+                </div>
+                <button onclick="openScanModal()" class="px-2.5 py-1 rounded-xl bg-[#1e293b] text-white text-[11px] font-semibold hover:bg-slate-800 flex items-center gap-1 shadow-sm active:scale-95 transition">
+                  <svg class="w-3 h-3 text-sky-400 inline-block -mt-0.5 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  <span>Switch Flight</span>
+                </button>
+              </div>
+              <div id="beforeFlightRoute" class="text-[11px] text-slate-500">Bucharest (OTP) &rarr; Paris (CDG) &bull; Seat 14B</div>
+              <div class="mt-2 text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-1 rounded-lg font-bold flex items-center justify-between">
+                <span>&bull; Offline Data Package Ready</span>
+                <span class="font-mono">12.4 MB</span>
+              </div>
+            </div>
+
+            <!-- INTERACTIVE CHECKLIST (SAVED TO LOCALSTORAGE) -->
+            <div class="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-2">Your Flight Checklist</div>
+            <div class="space-y-2 mb-4">
+              <div class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
+                <label class="flex items-center gap-3 cursor-pointer flex-1">
+                  <input type="checkbox" id="chk-stages" onchange="toggleChecklist('stages')" class="w-4 h-4 text-sky-400 rounded border-slate-300 focus:ring-sky-400">
+                  <span class="text-xs text-slate-800 font-semibold">Explore the stages of flight</span>
+                </label>
+                <button onclick="goToScreen('flightmap')" class="text-[10px] font-bold text-sky-400 hover:text-sky-700">View Map &rarr;</button>
+              </div>
+
+              <div class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
+                <label class="flex items-center gap-3 cursor-pointer flex-1">
+                  <input type="checkbox" id="chk-audio" onchange="toggleChecklist('audio')" class="w-4 h-4 text-sky-400 rounded border-slate-300 focus:ring-sky-400">
+                  <span class="text-xs text-slate-800 font-semibold">Choose something calming to listen to</span>
+                </label>
+                <button onclick="goToScreen('audio')" class="text-[10px] font-bold text-sky-400 hover:text-sky-700">Audio &rarr;</button>
+              </div>
+
+              <div class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
+                <label class="flex items-center gap-3 cursor-pointer flex-1">
+                  <input type="checkbox" id="chk-offline" onchange="toggleChecklist('offline')" class="w-4 h-4 text-sky-400 rounded border-slate-300 focus:ring-sky-400">
+                  <span class="text-xs text-slate-800 font-semibold">Download route bundle for Airplane Mode</span>
+                </label>
+                <span class="text-[10px] font-bold text-sky-400">Saved</span>
+              </div>
+            </div>
+
+            <!-- 7 FLIGHT PHASES ACCORDION GUIDE -->
+            <div class="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-2">What to Expect &bull; Phase by Phase</div>
+            <div class="space-y-1.5 mb-2">
+              <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-xs">
+                <button onclick="togglePhaseItem('ph1')" class="w-full p-2.5 flex items-center justify-between text-left">
+                  <span class="text-xs font-semibold text-slate-800">1. Gate &amp; Pushback</span>
+                  <span id="ph1-icon" class="text-sky-400 text-sm font-bold">+</span>
+                </button>
+                <div id="ph1-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                  A tug pushes the plane backward. You may hear high-pitched electric pumps and fans as the auxiliary power unit (APU) provides power before the main engines start.
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-xs">
+                <button onclick="togglePhaseItem('ph2')" class="w-full p-2.5 flex items-center justify-between text-left">
+                  <span class="text-xs font-semibold text-slate-800">2. Taxi to Runway</span>
+                  <span id="ph2-icon" class="text-sky-400 text-sm font-bold">+</span>
+                </button>
+                <div id="ph2-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                  The airplane rolls on the taxiway like a bus. Wings extend flaps with a subtle whirring sound to maximize lift at slower takeoff speeds.
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-xs">
+                <button onclick="togglePhaseItem('ph3')" class="w-full p-2.5 flex items-center justify-between text-left">
+                  <span class="text-xs font-semibold text-slate-800">3. Takeoff Roll &amp; Liftoff</span>
+                  <span id="ph3-icon" class="text-sky-400 text-sm font-bold">+</span>
+                </button>
+                <div id="ph3-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                  Pilots apply takeoff thrust. You feel gentle acceleration pressing you back into your seat for 30 to 45 seconds until the nose gently rotates upward.
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-xs">
+                <button onclick="togglePhaseItem('ph4')" class="w-full p-2.5 flex items-center justify-between text-left">
+                  <span class="text-xs font-semibold text-slate-800">4. Climb &amp; Thrust Reduction</span>
+                  <span id="ph4-icon" class="text-sky-400 text-sm font-bold">+</span>
+                </button>
+                <div id="ph4-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                  Landing gear retracts with a mechanical clunk. At ~1,000 feet, pilots throttle back to climb thrust—the engine volume drops gently. The airplane is climbing normally.
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-xs">
+                <button onclick="togglePhaseItem('ph5')" class="w-full p-2.5 flex items-center justify-between text-left">
+                  <span class="text-xs font-semibold text-slate-800">5. Cruising Altitude (FL350 - FL390)</span>
+                  <span id="ph5-icon" class="text-sky-400 text-sm font-bold">+</span>
+                </button>
+                <div id="ph5-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                  Level flight at 7 miles high. A two-tone chime sounds as the seatbelt sign turns off. The engines hum quietly with steady aerodynamic lift.
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-xs">
+                <button onclick="togglePhaseItem('ph6')" class="w-full p-2.5 flex items-center justify-between text-left">
+                  <span class="text-xs font-semibold text-slate-800">6. Descent (Top of Descent)</span>
+                  <span id="ph6-icon" class="text-sky-400 text-sm font-bold">+</span>
+                </button>
+                <div id="ph6-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                  Begins 25-30 minutes before arrival. Engine sound drops as pilots reduce power to glide downward. You may feel a slight ear pressure—yawning or swallowing easily relieves it.
+                </div>
+              </div>
+
+              <div class="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-xs">
+                <button onclick="togglePhaseItem('ph7')" class="w-full p-2.5 flex items-center justify-between text-left">
+                  <span class="text-xs font-semibold text-slate-800">7. Final Approach &amp; Touchdown</span>
+                  <span id="ph7-icon" class="text-sky-400 text-sm font-bold">+</span>
+                </button>
+                <div id="ph7-content" class="hidden px-3 pb-3 text-[11px] text-slate-500 border-t border-slate-100 pt-2 leading-relaxed">
+                  Landing gear extends with a solid locking thud. The plane touches down firmly on main wheels, followed by reverse thrust roar to decelerate safely on the runway.
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <button onclick="goToScreen('flightmap')" class="w-full py-3 rounded-2xl bg-[#1e293b] hover:bg-[#0f172a] text-white text-xs font-semibold shadow-md active:scale-95 transition">
+                Open Live Flight Hub &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 5: AUDIO LIBRARY                        -->
+        <!-- ============================================== -->
+        <div id="screen-audio" class="screen-view hidden flex-1 flex flex-col justify-between p-5 overflow-y-auto no-scrollbar">
+          <div>
+            <div class="flex items-center justify-between pb-2">
+              <button onclick="goToScreen('home')" class="flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-slate-900">
+                <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                Audio library
+              </button>
+              <button onclick="toggleInAppMenu()" class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs">
+                <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+              </button>
+            </div>
+
+            <h1 class="font-serif-title text-2xl font-medium text-slate-900 leading-snug">
+              Find something<br>that helps.
+            </h1>
+
+            <!-- REAL USER MOUNTAIN VALLEY IMAGE -->
+            <div class="my-3 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative h-28 bg-slate-100">
+              <img src="/assets/img/hero_audio_clouds.png" alt="Cloud layers" class="w-full h-full object-cover object-center" />
+            </div>
+
+            <div class="flex items-center gap-6 border-b border-slate-200 pb-2 mb-3 text-xs font-semibold text-slate-400">
+              <button class="text-sky-400 border-b-2 border-sky-500 pb-2 -mb-2.5 font-bold">All</button>
+              <button class="hover:text-slate-700">Flight guides</button>
+              <button class="hover:text-slate-700">Calm</button>
+            </div>
+
+            <div class="space-y-2">
+              <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <button onclick="playTrackAudio('engine_roar', 'Understanding takeoff', '2:10')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow">▶</button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">Understanding takeoff</div>
+                    <div class="text-[10px] text-slate-400">2 min &bull; Captain Alexandru</div>
+                  </div>
+                </div>
+                <span class="text-sky-400 text-xs font-bold flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Saved</span></span>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <button onclick="playTrackAudio('chime', 'A moment to reset', '3:00')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow">▶</button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">A moment to reset</div>
+                    <div class="text-[10px] text-slate-400">3 min &bull; Guided calm</div>
+                  </div>
+                </div>
+                <span class="text-sky-400 text-xs font-bold flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Saved</span></span>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <button onclick="playTrackAudio('airbus_ptu', 'Cabin sounds, explained', '4:15')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow">▶</button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">Cabin sounds, explained</div>
+                    <div class="text-[10px] text-slate-400">4 min &bull; PTU, gear &amp; flaps</div>
+                  </div>
+                </div>
+                <span class="text-sky-400 text-xs font-bold flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Saved</span></span>
+              </div>
+            </div>
+
+            <!-- Sticky Mini Player -->
+            <div class="mt-3 p-2.5 rounded-2xl bg-slate-900 text-white flex items-center justify-between shadow-lg">
+              <div class="flex items-center gap-2.5 flex-1 mr-2">
+                <button onclick="playAircraftSound('chime')" class="w-7 h-7 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs shrink-0">▶</button>
+                <div class="truncate">
+                  <div class="text-[11px] font-bold truncate">A moment to reset</div>
+                  <div class="w-24 h-1 bg-slate-700 rounded-full mt-1 overflow-hidden">
+                    <div class="bg-sky-400 h-full w-[35%]"></div>
+                  </div>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">0:45 / 3:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 6: AFTER LANDING                        -->
+        <!-- ============================================== -->
+        <div id="screen-landing" class="screen-view hidden flex-1 flex flex-col justify-between p-5 overflow-y-auto no-scrollbar">
+          <div>
+            <div class="flex items-center justify-between pb-2">
+              <button onclick="goToScreen('home')" class="flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-slate-900">
+                <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                After landing
+              </button>
+              <button onclick="toggleInAppMenu()" class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs">
+                <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+              </button>
+            </div>
+
+            <h1 class="font-serif-title text-2xl font-medium text-slate-900 leading-snug">
+              You made space<br>for the journey.
+            </h1>
+
+            <!-- REAL USER RUNWAY & TOWER IMAGE -->
+            <div class="my-3 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative h-32 bg-slate-100">
+              <img src="/assets/img/hero_landing_runway.png" alt="Runway and terminal after landing" class="w-full h-full object-cover object-center" />
+            </div>
+
+            <div class="text-xs font-bold text-slate-700 mb-2">How did the flight feel?</div>
+            <div class="grid grid-cols-3 gap-2 mb-3">
+              <button onclick="selectPill(this)" class="pill-btn py-2 px-1 text-center rounded-xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:border-slate-400">
+                Easier
+              </button>
+              <button onclick="selectPill(this)" class="pill-btn py-2 px-1 text-center rounded-xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:border-slate-400">
+                As expected
+              </button>
+              <button onclick="selectPill(this)" class="pill-btn py-2 px-1 text-center rounded-xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:border-slate-400">
+                Harder
+              </button>
+            </div>
+
+            <div class="text-xs font-bold text-slate-700 mb-1">A note for next time</div>
+            <textarea rows="2.5" class="w-full p-3 rounded-2xl bg-white border border-slate-200 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-sky-400" placeholder="What helped you today?"></textarea>
+          </div>
+
+          <div class="space-y-2 pt-2">
+            <button onclick="alert('Your reflection has been safely saved on your device!'); goToScreen('home');" class="w-full py-3.5 rounded-2xl bg-[#1e293b] hover:bg-[#0f172a] text-white text-xs font-semibold shadow-md active:scale-95 transition">
+              Save reflection
+            </button>
+            <div class="text-center">
+              <button onclick="goToScreen('home')" class="text-xs text-slate-500 hover:text-slate-800">
+                Skip for now
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- IN-APP SLIDE-OVER NAVIGATION DRAWER (ACCESSIBLE FROM INSIDE PHONE) -->
+      <div id="inAppDrawer" class="hidden absolute inset-0 bg-black/60 backdrop-blur-sm z-50 flex justify-end">
+        <div class="w-72 bg-white h-full flex flex-col justify-between p-5 shadow-2xl overflow-y-auto no-scrollbar">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-sky-500" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                <span class="font-bold text-slate-900 text-sm">App Directory</span>
+              </div>
+              <button onclick="toggleInAppMenu()" class="w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+
+            <!-- All Screen Navigation Directory inside Phone -->
+            <div class="py-3 space-y-1 text-xs">
+              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1">Journey Stages</div>
+              <button onclick="goToScreen('home'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-slate-100 flex items-center gap-2.5 text-slate-800 font-semibold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><span>Home Screen</span>
+              </button>
+              <button onclick="goToScreen('before'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-slate-100 flex items-center gap-2.5 text-slate-800 font-semibold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg><span>Before You Fly (Checklist &amp; Pass)</span>
+              </button>
+              <button onclick="goToScreen('flightmap'); toggleMapMode('corridor'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-slate-100 flex items-center gap-2.5 text-slate-800 font-semibold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 3a9 9 0 019 9M12 12l5-5"/></svg><span>Live Moving Airway Radar</span>
+              </button>
+              <button onclick="goToScreen('flightmap'); toggleMapMode('horizon'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-slate-100 flex items-center gap-2.5 text-slate-800 font-semibold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M3 12h6m6 0h6M12 7v3m-2 2h4"/></svg><span>Attitude Horizon &amp; Banking</span>
+              </button>
+              <button onclick="goToScreen('flightmap'); toggleMapMode('window'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-slate-100 flex items-center gap-2.5 text-slate-800 font-semibold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="6"/><circle cx="12" cy="12" r="2.5"/></svg><span>Virtual Cabin Window</span>
+              </button>
+              <button onclick="goToScreen('flightmap'); toggleMapMode('sounds'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-slate-100 flex items-center gap-2.5 text-slate-800 font-semibold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"/><path stroke-linecap="round" d="M15.54 8.46a5 5 0 010 7.07"/></svg><span>Mechanical Sounds &amp; G-Meter</span>
+              </button>
+              <button onclick="goToScreen('flightmap'); toggleMapMode('copilot'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-slate-100 flex items-center gap-2.5 text-slate-800 font-semibold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path stroke-linecap="round" d="M5 21v-2a7 7 0 0114 0v2M8 3h8"/></svg><span>Ask the Copilot (Panic Q&amp;A)</span>
+              </button>
+              <button onclick="goToScreen('audio'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-slate-100 flex items-center gap-2.5 text-slate-800 font-semibold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 18v-6a9 9 0 0118 0v6M3 18a3 3 0 003 3h1a1 1 0 001-1v-4a1 1 0 00-1-1H4a1 1 0 00-1 1zm18 0a3 3 0 01-3 3h-1a1 1 0 01-1-1v-4a1 1 0 011-1h3a1 1 0 011 1z"/></svg><span>Audio Library &amp; Calm Guides</span>
+              </button>
+              <button onclick="goToScreen('sos'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-rose-50 text-rose-700 flex items-center gap-2.5 font-bold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v4m0 4h.01"/></svg><span>SOS Grounding &amp; Breathing</span>
+              </button>
+              <button onclick="goToScreen('landing'); toggleInAppMenu();" class="w-full p-2 rounded-xl text-left hover:bg-slate-100 flex items-center gap-2.5 text-slate-800 font-semibold">
+                <svg class="w-4 h-4 text-sky-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.5 19h19M4 11l5 4 11-5-1.5-2.5-7 2.5-3-2.5-2 .5 1.5 2.5-4 .5z"/></svg><span>After Landing Reflection</span>
+              </button>
+            </div>
+
+            <!-- Active Flight Info Card inside Drawer -->
+            <div class="mt-2 p-3 rounded-2xl bg-sky-50 border border-sky-200/80 text-[11px] text-slate-700 space-y-1">
+              <div class="font-bold text-sky-900">Current Saved Flight</div>
+              <div>TAROM RO391 &bull; Boeing 737-800</div>
+              <div class="text-[10px] text-slate-500">Bucharest OTP &rarr; Paris CDG &bull; Seat 14B</div>
+              <div class="text-[10px] font-bold text-emerald-700">● 100% Offline Bundle Ready (12.4 MB)</div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-200 text-center">
+            <button onclick="openScanModal(); toggleInAppMenu();" class="w-full py-2.5 rounded-xl bg-sky-600 text-white font-bold text-xs shadow-sm">
+              <svg class="w-4 h-4 inline-block -mt-0.5 mr-1.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Scan New Boarding Pass
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCANNER MODAL DIALOG INSIDE PHONE -->
+      <div id="scanModal" class="hidden absolute inset-0 bg-black/80 backdrop-blur-sm z-50 flex flex-col justify-end p-4">
+        <div class="bg-white rounded-3xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-800">Scan Boarding Pass (IATA PDF417/Aztec)</span>
+            <button onclick="closeScanModal()" class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+          </div>
+
+          <div class="h-32 rounded-2xl bg-slate-900 flex flex-col items-center justify-center relative overflow-hidden border border-slate-700">
+            <svg class="w-10 h-10 text-sky-400 animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span class="text-[10px] text-slate-400 mt-2">Position printed or digital pass inside the frame</span>
+            <div class="absolute inset-x-6 top-1/2 h-0.5 bg-rose-500/80 shadow-[0_0_8px_rgba(244,63,94,1)]"></div>
+          </div>
+
+          <div class="space-y-1.5 pt-1">
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Or test with an authentic airline route:</span>
+            <div class="grid grid-cols-1 gap-1.5 max-h-48 overflow-y-auto pr-1 no-scrollbar">
+              <button onclick="syncDemoFlight('RO391')" class="w-full p-2 rounded-xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-between text-left transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-6 h-5 rounded bg-sky-100 text-sky-800 text-[10px] font-mono font-bold flex items-center justify-center">RO</span>
+                  <span>TAROM RO391 (Bucharest &rarr; Paris)</span>
+                </span>
+                <span class="text-[10px] text-sky-700 font-mono">B738 &bull; 1,870 km</span>
+              </button>
+              <button onclick="syncDemoFlight('LH1420')" class="w-full p-2 rounded-xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-between text-left transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-6 h-5 rounded bg-amber-100 text-amber-900 text-[10px] font-mono font-bold flex items-center justify-center">LH</span>
+                  <span>Lufthansa LH1420 (Frankfurt &rarr; Bucharest)</span>
+                </span>
+                <span class="text-[10px] text-sky-700 font-mono">A321neo &bull; 1,460 km</span>
+              </button>
+              <button onclick="syncDemoFlight('BA178')" class="w-full p-2 rounded-xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-between text-left transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-6 h-5 rounded bg-indigo-100 text-indigo-900 text-[10px] font-mono font-bold flex items-center justify-center">BA</span>
+                  <span>British Airways BA178 (New York &rarr; London)</span>
+                </span>
+                <span class="text-[10px] text-sky-700 font-mono">B77W &bull; 5,540 km</span>
+              </button>
+              <button onclick="syncDemoFlight('AF1140')" class="w-full p-2 rounded-xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-between text-left transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-6 h-5 rounded bg-blue-100 text-blue-900 text-[10px] font-mono font-bold flex items-center justify-center">AF</span>
+                  <span>Air France AF1140 (Paris &rarr; Barcelona)</span>
+                </span>
+                <span class="text-[10px] text-sky-700 font-mono">A359 &bull; 860 km</span>
+              </button>
+              <button onclick="syncDemoFlight('KL1382')" class="w-full p-2 rounded-xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-between text-left transition">
+                <span class="flex items-center gap-2">
+                  <span class="w-6 h-5 rounded bg-sky-100 text-sky-900 text-[10px] font-mono font-bold flex items-center justify-center">KL</span>
+                  <span>KLM KL1382 (Amsterdam &rarr; Madrid)</span>
+                </span>
+                <span class="text-[10px] text-sky-700 font-mono">B789 &bull; 1,480 km</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <!-- PERMANENTLY FIXED BOTTOM DOCK (I FEEL ANXIOUS BUTTON + 5 TABS) -->
+    <div id="mobileBottomDock" class="fixed bottom-0 inset-x-0 w-full z-50 bg-white/95 backdrop-blur-xl border-t border-slate-200 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] px-4 pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+12px)]" style="position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 9999 !important;">
+      <!-- Anchored "I feel anxious" Capsule Button (Fixed right above the tab menu) -->
+      <div id="dockAnxiousWrapper" class="w-full pb-2">
+        <button onclick="goToScreen('sos')" id="dockAnxiousBtn" class="w-full py-2.5 px-4 rounded-xl bg-[#1e293b] active:bg-[#0f172a] text-white text-xs font-semibold shadow-md flex items-center justify-center gap-2.5 transition active:scale-[0.98]">
+          <span class="w-2.5 h-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.9)] animate-pulse"></span>
+          <span class="tracking-wide">I feel anxious</span>
+        </button>
+      </div>
+
+      <!-- 5 Navigation Tabs with generous overhead room -->
+      <nav id="mobileBottomNav" class="w-full flex items-center justify-around pt-1">
+        <button onclick="goToScreen('home')" id="nav-btn-home" class="flex flex-col items-center gap-1 text-sky-400 font-bold transition py-1 px-2.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          <span class="text-[10px]">Home</span>
+        </button>
+
+        <button onclick="goToScreen('before')" id="nav-btn-before" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-700 transition py-1 px-2.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+          <span class="text-[10px]">Before</span>
+        </button>
+
+        <button onclick="goToScreen('flightmap')" id="nav-btn-flightmap" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-700 transition py-1 px-2.5">
+          <svg class="w-5 h-5 text-sky-400" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+          <span class="text-[10px]">In Flight</span>
+        </button>
+
+        <button onclick="goToScreen('audio')" id="nav-btn-audio" class="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-700 transition py-1 px-2.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+          <span class="text-[10px]">Audio</span>
+        </button>
+
+        <button onclick="goToScreen('sos')" id="nav-btn-sos" class="flex flex-col items-center gap-1 text-sky-500 hover:text-sky-600 transition py-1 px-2.5">
+          <span class="sos-badge w-5 h-5 rounded-full bg-sky-50 text-sky-500 border border-sky-300 flex items-center justify-center text-[10px] font-black">!</span>
+          <span class="text-[10px]">SOS</span>
+        </button>
+      </nav>
+    </div>
+
+  </div>
+
+<script>
+    // =========================================================================
+    // 5 COMMERCIAL FLIGHT ROUTE PRESETS & DYNAMIC BEZIER TRAJECTORY
+    // =========================================================================
+    const FLIGHT_PRESETS = {
+      'RO391': {
+        flightNumber: 'RO391',
+        airline: 'TAROM',
+        aircraft: 'Boeing 737-800',
+        origin: { iata: 'OTP', city: 'Bucharest' },
+        destination: { iata: 'CDG', city: 'Paris' },
+        distanceKm: 1870,
+        plannedAltitude: '37,000 ft',
+        cruiseSpeed: '840 km/h',
+        airwayCurve: 'M 310 190 Q 180 110 50 80',
+        p0: { x: 310, y: 190 },
+        p1: { x: 180, y: 110 },
+        p2: { x: 50, y: 80 },
+        zones: ['Bucharest departure', 'Over Hungary', 'Over Austria', 'Over Germany', 'Approaching Paris CDG'],
+        waypoints: [
+          { name: 'OTP (Bucharest)', x: 310, y: 190, isEndpoint: true },
+          { name: 'BUDAPEST', x: 231, y: 146 },
+          { name: 'VIENNA', x: 180, y: 123 },
+          { name: 'MUNICH', x: 129, y: 102 },
+          { name: 'CDG (Paris)', x: 50, y: 80, isEndpoint: true }
+        ]
+      },
+      'LH1420': {
+        flightNumber: 'LH1420',
+        airline: 'Lufthansa',
+        aircraft: 'Airbus A321neo',
+        origin: { iata: 'FRA', city: 'Frankfurt' },
+        destination: { iata: 'OTP', city: 'Bucharest' },
+        distanceKm: 1460,
+        plannedAltitude: '35,000 ft',
+        cruiseSpeed: '820 km/h',
+        airwayCurve: 'M 70 90 Q 180 130 310 190',
+        p0: { x: 70, y: 90 },
+        p1: { x: 180, y: 130 },
+        p2: { x: 310, y: 190 },
+        zones: ['Frankfurt departure', 'Over Bavaria', 'Over Austria', 'Over Hungary', 'Approaching Bucharest OTP'],
+        waypoints: [
+          { name: 'FRA (Frankfurt)', x: 70, y: 90, isEndpoint: true },
+          { name: 'NUREMBERG', x: 130, y: 110 },
+          { name: 'VIENNA', x: 180, y: 130 },
+          { name: 'BUDAPEST', x: 240, y: 160 },
+          { name: 'OTP (Bucharest)', x: 310, y: 190, isEndpoint: true }
+        ]
+      },
+      'BA178': {
+        flightNumber: 'BA178',
+        airline: 'British Airways',
+        aircraft: 'Boeing 777-300ER',
+        origin: { iata: 'JFK', city: 'New York' },
+        destination: { iata: 'LHR', city: 'London' },
+        distanceKm: 5540,
+        plannedAltitude: '39,000 ft',
+        cruiseSpeed: '910 km/h',
+        airwayCurve: 'M 40 180 Q 150 60 320 80',
+        p0: { x: 40, y: 180 },
+        p1: { x: 150, y: 60 },
+        p2: { x: 320, y: 80 },
+        zones: ['JFK corridor', 'Over Nova Scotia', 'North Atlantic Oceanic Track', 'Over Ireland', 'Approaching London LHR'],
+        waypoints: [
+          { name: 'JFK (New York)', x: 40, y: 180, isEndpoint: true },
+          { name: 'BOSTON', x: 90, y: 140 },
+          { name: 'NEWFOUNDLAND', x: 160, y: 85 },
+          { name: 'IRELAND', x: 260, y: 75 },
+          { name: 'LHR (London)', x: 320, y: 80, isEndpoint: true }
+        ]
+      },
+      'AF1140': {
+        flightNumber: 'AF1140',
+        airline: 'Air France',
+        aircraft: 'Airbus A350-900',
+        origin: { iata: 'CDG', city: 'Paris' },
+        destination: { iata: 'BCN', city: 'Barcelona' },
+        distanceKm: 860,
+        plannedAltitude: '36,000 ft',
+        cruiseSpeed: '850 km/h',
+        airwayCurve: 'M 160 50 Q 180 130 190 220',
+        p0: { x: 160, y: 50 },
+        p1: { x: 180, y: 130 },
+        p2: { x: 190, y: 220 },
+        zones: ['Paris departure', 'Over Loire Valley', 'Over Massif Central', 'Pyrenees Crossing', 'Approaching Barcelona'],
+        waypoints: [
+          { name: 'CDG (Paris)', x: 160, y: 50, isEndpoint: true },
+          { name: 'ORLEANS', x: 165, y: 90 },
+          { name: 'CLERMONT', x: 175, y: 140 },
+          { name: 'TOULOUSE', x: 185, y: 180 },
+          { name: 'BCN (Barcelona)', x: 190, y: 220, isEndpoint: true }
+        ]
+      },
+      'KL1382': {
+        flightNumber: 'KL1382',
+        airline: 'KLM Royal Dutch',
+        aircraft: 'Boeing 787-9 Dreamliner',
+        origin: { iata: 'AMS', city: 'Amsterdam' },
+        destination: { iata: 'MAD', city: 'Madrid' },
+        distanceKm: 1480,
+        plannedAltitude: '38,000 ft',
+        cruiseSpeed: '870 km/h',
+        airwayCurve: 'M 190 40 Q 170 120 140 220',
+        p0: { x: 190, y: 40 },
+        p1: { x: 170, y: 120 },
+        p2: { x: 140, y: 220 },
+        zones: ['Amsterdam departure', 'Over Belgium', 'Over Western France', 'Bay of Biscay Corridor', 'Approaching Madrid MAD'],
+        waypoints: [
+          { name: 'AMS (Amsterdam)', x: 190, y: 40, isEndpoint: true },
+          { name: 'BRUSSELS', x: 185, y: 80 },
+          { name: 'BORDEAUX', x: 160, y: 150 },
+          { name: 'BILBAO', x: 150, y: 185 },
+          { name: 'MAD (Madrid)', x: 140, y: 220, isEndpoint: true }
+        ]
+      }
+    };
+
+    let activeFlightCode = localStorage.getItem('flycalm_active_flight') || 'RO391';
+
+    // Navigation across screens
+    function goToScreen(screenName) {
+      document.querySelectorAll('.screen-view').forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById('screen-' + screenName);
+      if (target) {
+        target.classList.remove('hidden');
+        target.scrollTop = 0;
+      }
+      if (screenName === 'flightmap') {
+        updateFlightProgress(currentProgress);
+      }
+
+      // Automatically reset 5-4-3-2-1 grounding to 5 whenever entering SOS, or stop breathing when leaving
+      if (screenName === 'sos') {
+        resetGrounding(5);
+        toggleSosMode('grounding');
+      } else {
+        stopBreathingCycle();
+      }
+
+      // Hide "I feel anxious" button on SOS screen (user is already in panic relief mode)
+      const anxiousWrap = document.getElementById('dockAnxiousWrapper');
+      if (anxiousWrap) {
+        if (screenName === 'sos') {
+          anxiousWrap.classList.add('hidden');
+        } else {
+          anxiousWrap.classList.remove('hidden');
+        }
+      }
+      const anxiousWrapSim = document.getElementById('dockAnxiousWrapperSim');
+      if (anxiousWrapSim) {
+        if (screenName === 'sos') {
+          anxiousWrapSim.classList.add('hidden');
+        } else {
+          anxiousWrapSim.classList.remove('hidden');
+        }
+      }
+
+      // Update bottom nav highlighting
+      const navIds = ['home', 'before', 'flightmap', 'audio', 'sos'];
+      navIds.forEach(id => {
+        const btn = document.getElementById('nav-btn-' + id);
+        if (!btn) return;
+        const isActive = (id === screenName);
+        if (isActive) {
+          btn.className = 'flex flex-col items-center gap-1 text-sky-400 font-bold transition py-1 px-2.5';
+          if (id === 'sos') {
+            const badge = btn.querySelector('.sos-badge');
+            if (badge) badge.className = 'sos-badge w-5 h-5 rounded-full bg-sky-50 text-sky-500 border border-sky-400 flex items-center justify-center text-[10px] font-black';
+          }
+        } else {
+          btn.className = 'flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 font-medium transition py-1 px-2.5';
+          if (id === 'sos') {
+            const badge = btn.querySelector('.sos-badge');
+            if (badge) badge.className = 'sos-badge w-5 h-5 rounded-full bg-slate-100 text-slate-400 border border-slate-200 flex items-center justify-center text-[10px] font-bold';
+          }
+        }
+      });
+    }
+
+    // Toggle In-App Menu Drawer
+    function toggleInAppMenu() {
+      const drawer = document.getElementById('inAppDrawer');
+      if (drawer) {
+        drawer.classList.toggle('hidden');
+      }
+    }
+
+    // Toggle Map Mode inside In-Flight Hub (Corridor vs Horizon vs Sounds vs Copilot)
+    function toggleMapMode(mode) {
+      const activeClass = 'py-2 px-1 rounded-xl bg-[#1e293b] text-white shadow-xs transition flex items-center justify-center gap-1.5 whitespace-nowrap';
+      const inactiveClass = 'py-2 px-1 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1.5 whitespace-nowrap';
+      ['corridor', 'horizon', 'sounds', 'copilot'].forEach(m => {
+        const view = document.getElementById('map-view-' + m);
+        const btn = document.getElementById('btn-mode-' + m);
+        if (m === mode) {
+          if (view) view.classList.remove('hidden');
+          if (btn) btn.className = activeClass;
+        } else {
+          if (view) view.classList.add('hidden');
+          if (btn) btn.className = inactiveClass;
+        }
+      });
+    }
+
+    function toggleHorizonSubTab(sub) {
+      const pfdSec = document.getElementById('horizon-pfd-section');
+      const winSec = document.getElementById('horizon-window-section');
+      const pfdBtn = document.getElementById('subtab-pfd');
+      const winBtn = document.getElementById('subtab-window');
+      if (sub === 'pfd') {
+        if (pfdSec) pfdSec.classList.remove('hidden');
+        if (winSec) winSec.classList.add('hidden');
+        if (pfdBtn) pfdBtn.className = 'px-3 py-1 rounded-full text-xs font-bold bg-[#1e293b] text-white';
+        if (winBtn) winBtn.className = 'px-3 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-600';
+      } else {
+        if (pfdSec) pfdSec.classList.add('hidden');
+        if (winSec) winSec.classList.remove('hidden');
+        if (winBtn) winBtn.className = 'px-3 py-1 rounded-full text-xs font-bold bg-[#1e293b] text-white';
+        if (pfdBtn) pfdBtn.className = 'px-3 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-600';
+      }
+    }
+
+    function toggleSoundsSubTab(sub) {
+      const accSec = document.getElementById('sounds-accordion-section');
+      const gmetSec = document.getElementById('sounds-gmeter-section');
+      const accBtn = document.getElementById('btn-sub-acc');
+      const gmetBtn = document.getElementById('btn-sub-gmet');
+      if (sub === 'acc') {
+        if (accSec) accSec.classList.remove('hidden');
+        if (gmetSec) gmetSec.classList.add('hidden');
+        if (accBtn) accBtn.className = 'px-2.5 py-1 rounded-full bg-[#1e293b] text-white';
+        if (gmetBtn) gmetBtn.className = 'px-2.5 py-1 rounded-full bg-slate-200 text-slate-600';
+      } else {
+        if (accSec) accSec.classList.add('hidden');
+        if (gmetSec) gmetSec.classList.remove('hidden');
+        if (gmetBtn) gmetBtn.className = 'px-2.5 py-1 rounded-full bg-[#1e293b] text-white';
+        if (accBtn) accBtn.className = 'px-2.5 py-1 rounded-full bg-slate-200 text-slate-600';
+      }
+    }
+
+    // Auto-flight Simulation Engine
+    let currentProgress = 58.0;
+    let isAutoFlight = true;
+    let flightSpeedMultiplier = 1;
+    let countdownSeconds = 1 * 3600 + 14 * 60 + 22; // 1h 14m 22s
+
+    function toggleAutoFlight() {
+      isAutoFlight = !isAutoFlight;
+      const btn = document.getElementById('btnAutoFlight');
+      const icon = document.getElementById('autoFlightIcon');
+      const text = document.getElementById('autoFlightText');
+      if (isAutoFlight) {
+        btn.className = 'px-2 py-0.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold text-[10px] flex items-center gap-1 shadow-xs transition active:scale-95';
+        icon.textContent = '⏸';
+        text.textContent = 'Live';
+      } else {
+        btn.className = 'px-2 py-0.5 rounded-lg bg-slate-600 hover:bg-slate-700 text-white font-bold text-[10px] flex items-center gap-1 shadow-xs transition active:scale-95';
+        icon.textContent = '▶';
+        text.textContent = 'Paused';
+      }
+    }
+
+    function setFlightSpeed(spd) {
+      flightSpeedMultiplier = spd;
+      [1, 5, 20].forEach(s => {
+        const b = document.getElementById('spd-' + s);
+        if (b) {
+          if (s === spd) {
+            b.className = 'px-1.5 py-0.5 rounded text-[9px] font-bold bg-sky-100 text-sky-800';
+          } else {
+            b.className = 'px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-100 text-slate-600 hover:bg-slate-200';
+          }
+        }
+      });
+    }
+
+    function manualFlightProgress(pct) {
+      currentProgress = parseFloat(pct);
+      updateFlightProgress(currentProgress);
+    }
+
+    // Exact Bezier curve formula with tangent angle dynamically calibrated for the active flight
+    function getBezierCoords(t) {
+      const p = FLIGHT_PRESETS[activeFlightCode] || FLIGHT_PRESETS['RO391'];
+      const p0 = p.p0 || { x: 310, y: 190 };
+      const p1 = p.p1 || { x: 180, y: 110 };
+      const p2 = p.p2 || { x: 50, y: 80 };
+
+      const clampedT = Math.max(0, Math.min(1, t));
+      const u = 1 - clampedT;
+      const x = u * u * p0.x + 2 * u * clampedT * p1.x + clampedT * clampedT * p2.x;
+      const y = u * u * p0.y + 2 * u * clampedT * p1.y + clampedT * clampedT * p2.y;
+      
+      const dx = 2 * (1 - clampedT) * (p1.x - p0.x) + 2 * clampedT * (p2.x - p1.x);
+      const dy = 2 * (1 - clampedT) * (p1.y - p0.y) + 2 * clampedT * (p2.y - p1.y);
+      const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+      return { x, y, angle };
+    }
+
+    function renderWaypoints(p) {
+      const g = document.getElementById('mapWaypointsGroup');
+      if (!g || !p.waypoints) return;
+      g.innerHTML = p.waypoints.map(wp => {
+        if (wp.isEndpoint) {
+          return `
+            <circle cx="${wp.x}" cy="${wp.y}" r="5" fill="#0284c7" stroke="#ffffff" stroke-width="2" />
+            <text x="${wp.x}" y="${wp.y > 150 ? wp.y + 16 : wp.y - 10}" text-anchor="middle" font-size="9" font-weight="bold" fill="#334155">${wp.name}</text>
+          `;
+        } else {
+          return `
+            <circle cx="${wp.x}" cy="${wp.y}" r="3" fill="#64748b" />
+            <text x="${wp.x}" y="${wp.y - 8}" text-anchor="middle" font-size="8" fill="#64748b">${wp.name}</text>
+          `;
+        }
+      }).join('');
+    }
+
+    // Captain Briefing texts per flight phase (English)
+    const CAPTAIN_BRIEFINGS = {
+      climb: "Ladies and gentlemen, engine power has been reduced to continuous climb thrust. The aircraft is climbing smoothly toward cruise altitude.",
+      cruise: "We are cruising steadily at our planned flight level. Our airway corridor is clear and the air is calm. Enjoy your journey.",
+      descent: "We have begun our planned descent toward our destination airport. Cabin pressure is adjusting smoothly for landing."
+    };
+
+    function playCaptainBriefing() {
+      const p = currentProgress;
+      let text = CAPTAIN_BRIEFINGS.cruise;
+      if (p < 15) text = CAPTAIN_BRIEFINGS.climb;
+      else if (p > 80) text = CAPTAIN_BRIEFINGS.descent;
+
+      speakReassurance(text);
+    }
+
+    function speakReassurance(text) {
+      playAircraftSound('chime');
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'en-US';
+        utter.rate = 0.92;
+        utter.pitch = 0.95;
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    // Interactive Flight Progress Scrubber (0% to 100%) - 100% Pinned to Line
+    function updateFlightProgress(pct) {
+      const p = Math.max(0, Math.min(100, Math.round(pct)));
+      const labelEl = document.getElementById('flightPercentLabel');
+      if (labelEl) labelEl.textContent = p + '% complete';
+
+      const t = p / 100.0;
+      const coords = getBezierCoords(t);
+
+      const plane = document.getElementById('airplaneIconGroup');
+      if (plane) {
+        plane.setAttribute('transform', `translate(${coords.x.toFixed(2)}, ${coords.y.toFixed(2)}) rotate(${coords.angle.toFixed(1)})`);
+      }
+
+      // Dynamic solid blue trail drawn precisely to the airplane
+      const completedPath = document.getElementById('completedTrail');
+      if (completedPath) {
+        completedPath.style.strokeDasharray = '100 100';
+        completedPath.style.strokeDashoffset = (100 - p).toFixed(1);
+      }
+
+      const activeFlight = FLIGHT_PRESETS[activeFlightCode] || FLIGHT_PRESETS['RO391'];
+
+      // Update metrics based on phase
+      let alt = 37000;
+      let speed = 840;
+      let phase = 'Smooth Cruise';
+      let desc = 'Engine thrust optimized at cruise altitude. Wings level.';
+      let cabinAlt = '7,200 ft (Mountain)';
+      let zoneIndex = Math.min(activeFlight.zones.length - 1, Math.floor(t * activeFlight.zones.length));
+      let zone = activeFlight.zones[zoneIndex];
+      let remKm = Math.round(activeFlight.distanceKm * (1 - t));
+
+      if (p < 15) {
+        alt = Math.round(t * (37000 / 0.15));
+        speed = Math.round(280 + t * 450);
+        phase = 'Climb & Departure';
+        desc = 'Takeoff thrust reduced to climb thrust. Routine quietness.';
+        cabinAlt = '2,500 ft (Adapting)';
+        const cb = document.getElementById('captainBriefingText');
+        if (cb) cb.textContent = '"' + CAPTAIN_BRIEFINGS.climb + '"';
+      } else if (p > 80) {
+        const descentT = (p - 80) / 20.0;
+        alt = Math.round(37000 - descentT * 35000);
+        speed = Math.round(840 - descentT * 500);
+        phase = 'Smooth Descent (Top of Descent)';
+        desc = 'Cabin pressure gently increasing. Swallow or chew gum.';
+        cabinAlt = Math.round(7200 - descentT * 6800) + ' ft';
+        const cb = document.getElementById('captainBriefingText');
+        if (cb) cb.textContent = '"' + CAPTAIN_BRIEFINGS.descent + '"';
+      } else {
+        const cb = document.getElementById('captainBriefingText');
+        if (cb) cb.textContent = '"' + CAPTAIN_BRIEFINGS.cruise + '"';
+      }
+
+      const altEl = document.getElementById('mapAlt');
+      if (altEl) altEl.textContent = alt.toLocaleString() + ' ft';
+      const speedEl = document.getElementById('mapSpeed');
+      if (speedEl) speedEl.textContent = speed + ' km/h';
+      const distEl = document.getElementById('mapDistRemaining');
+      if (distEl) distEl.textContent = `${remKm} km to ${activeFlight.destination.city}`;
+      const zoneEl = document.getElementById('mapZoneStatus');
+      if (zoneEl) zoneEl.textContent = `Smooth flight • ${zone}`;
+      const phaseEl = document.getElementById('flightPhaseName');
+      if (phaseEl) phaseEl.textContent = phase;
+      const descEl = document.getElementById('flightPhaseDesc');
+      if (descEl) descEl.textContent = desc;
+      const cabinEl = document.getElementById('flightCabinAlt');
+      if (cabinEl) cabinEl.textContent = cabinAlt;
+    }
+
+    // Auto-flight Simulation Interval Ticker (1 second tick)
+    setInterval(() => {
+      if (isAutoFlight) {
+        currentProgress += 0.08 * flightSpeedMultiplier;
+        if (currentProgress > 100) currentProgress = 0;
+        updateFlightProgress(currentProgress);
+        const slider = document.getElementById('flightProgressSlider');
+        if (slider) slider.value = Math.round(currentProgress);
+      }
+      // Live countdown seconds
+      if (countdownSeconds > 0) {
+        countdownSeconds--;
+        const h = Math.floor(countdownSeconds / 3600);
+        const m = Math.floor((countdownSeconds % 3600) / 60);
+        const s = countdownSeconds % 60;
+        const timeEl = document.getElementById('mapTime');
+        if (timeEl) timeEl.textContent = `${h}h ${m}m ${s < 10 ? '0' : ''}${s}s`;
+      }
+    }, 1000);
+
+    // Artificial Horizon Banking simulation
+    function simulateBankTurn(deg) {
+      const sky = document.getElementById('gyroSky');
+      const ground = document.getElementById('gyroGround');
+      const text = document.getElementById('bankAngleReadout');
+
+      if (sky && ground && text) {
+        sky.style.transform = `rotate(${deg}deg)`;
+        ground.style.transform = `rotate(${deg}deg)`;
+        text.textContent = `Bank: ${Math.abs(deg)}° (${deg > 0 ? 'Left Turn' : 'Right Turn'})`;
+
+        setTimeout(() => {
+          sky.style.transform = 'rotate(0deg)';
+          ground.style.transform = 'rotate(0deg)';
+          text.textContent = 'Bank: 0° (Wings Level & Stable)';
+        }, 2000);
+      }
+    }
+
+    // Accordion toggle
+    function toggleAccordion(id) {
+      const content = document.getElementById(id + '-content');
+      const icon = document.getElementById(id + '-icon');
+      if (content && icon) {
+        if (content.classList.contains('hidden')) {
+          content.classList.remove('hidden');
+          icon.textContent = '−';
+        } else {
+          content.classList.add('hidden');
+          icon.textContent = '+';
+        }
+      }
+    }
+
+    // G-Meter bump simulation
+    function triggerBump(deltaG) {
+      const sphere = document.getElementById('gSphere');
+      const readout = document.getElementById('gMeterReadout');
+      if (!sphere || !readout) return;
+
+      const offset = (deltaG / 0.5) * 45;
+      const x = (Math.random() - 0.5) * offset * 2;
+      const y = (Math.random() - 0.5) * offset * 2;
+
+      sphere.style.transform = `translate(${x}px, ${y}px)`;
+      sphere.textContent = '+' + deltaG.toFixed(2) + 'G';
+      readout.textContent = `Variation: +${deltaG.toFixed(2)} G (${deltaG > 0.15 ? 'Normal Gust' : 'Light Ripple'})`;
+
+      setTimeout(() => {
+        sphere.style.transform = 'translate(0px, 0px)';
+        sphere.textContent = '+0.02G';
+        readout.textContent = 'Smooth Flight • Variation +0.02 G';
+      }, 1200);
+    }
+
+    // =========================================================================
+    // SOS MODE & PACED BREATHING ENGINE
+    // =========================================================================
+    let breathTimerInterval = null;
+    let breathPhaseIndex = 0;
+    let breathSecondsRemaining = 4;
+    const BREATH_PHASES = [
+      { name: 'Inhale', duration: 4, hint: 'Breathe in gently through your nose as the circle expands.' },
+      { name: 'Hold', duration: 4, hint: 'Hold comfortably. Your body is steady, supported, and safe.' },
+      { name: 'Exhale', duration: 4, hint: 'Exhale slowly through your mouth as the circle gently softens.' },
+      { name: 'Rest', duration: 4, hint: 'Gentle pause before the next natural breath.' }
+    ];
+
+    function toggleSosMode(mode) {
+      const gView = document.getElementById('sos-grounding-view');
+      const bView = document.getElementById('sos-breathing-view');
+      if (mode === 'breathing') {
+        if (gView) gView.classList.add('hidden');
+        if (bView) bView.classList.remove('hidden');
+        startBreathingCycle();
+      } else {
+        stopBreathingCycle();
+        if (bView) bView.classList.add('hidden');
+        if (gView) gView.classList.remove('hidden');
+        resetGrounding(5);
+      }
+    }
+
+    function startBreathingCycle() {
+      stopBreathingCycle();
+      breathPhaseIndex = 0;
+      breathSecondsRemaining = BREATH_PHASES[0].duration;
+      updateBreathingUI();
+
+      // Restart CSS animation synchronously
+      const ring = document.querySelector('.breathing-ring');
+      if (ring) {
+        ring.style.animation = 'none';
+        ring.offsetHeight; // trigger reflow
+        ring.style.animation = 'breathPaced 16s infinite ease-in-out';
+      }
+
+      breathTimerInterval = setInterval(() => {
+        breathSecondsRemaining--;
+        if (breathSecondsRemaining <= 0) {
+          breathPhaseIndex = (breathPhaseIndex + 1) % BREATH_PHASES.length;
+          breathSecondsRemaining = BREATH_PHASES[breathPhaseIndex].duration;
+        }
+        updateBreathingUI();
+      }, 1000);
+    }
+
+    function stopBreathingCycle() {
+      if (breathTimerInterval) {
+        clearInterval(breathTimerInterval);
+        breathTimerInterval = null;
+      }
+    }
+
+    function updateBreathingUI() {
+      const p = BREATH_PHASES[breathPhaseIndex];
+      const titleEl = document.getElementById('breathPhaseTitle');
+      const timerEl = document.getElementById('breathPhaseTimer');
+      const hintEl = document.getElementById('breathPhaseHint');
+      if (titleEl) titleEl.textContent = p.name;
+      if (timerEl) timerEl.textContent = breathSecondsRemaining + 's';
+      if (hintEl) hintEl.textContent = p.hint;
+    }
+
+    // =========================================================================
+    // 5-4-3-2-1 GROUNDING EXERCISE
+    // =========================================================================
+    let groundingStep = 5;
+    const GROUNDING_DATA = {
+      5: { title: 'things you can see', prompt: 'Look around the cabin: the tray table, a seat fabric, the air vent.' },
+      4: { title: 'things you can touch', prompt: 'Notice the texture of your clothes, the armrest, or the metal seatbelt buckle.' },
+      3: { title: 'things you can hear', prompt: 'Listen to the gentle air conditioning hum, soft chatter, or the steady engines.' },
+      2: { title: 'things you can smell', prompt: 'Notice the clean cabin air, fresh coffee, or your hand lotion.' },
+      1: { title: 'safe physical feeling', prompt: 'Feel your feet resting firmly and securely on the cabin floor.' }
+    };
+
+    function resetGrounding(step = 5) {
+      groundingStep = step;
+      updateGroundingUI();
+    }
+
+    function updateGroundingUI() {
+      const numEl = document.getElementById('groundingNumber');
+      const titleEl = document.getElementById('groundingTitle');
+      const promptEl = document.getElementById('groundingPrompt');
+      const btnEl = document.getElementById('groundingNextBtn');
+
+      if (numEl) numEl.textContent = groundingStep;
+      if (titleEl) titleEl.textContent = GROUNDING_DATA[groundingStep].title;
+      if (promptEl) promptEl.textContent = GROUNDING_DATA[groundingStep].prompt;
+
+      if (btnEl) {
+        if (groundingStep === 1) {
+          btnEl.textContent = 'Repeat from 5 (Start over)';
+        } else {
+          btnEl.textContent = 'Next';
+        }
+      }
+
+      for (let i = 5; i >= 1; i--) {
+        const dot = document.getElementById('dot-' + i);
+        if (dot) {
+          dot.className = i === groundingStep
+            ? 'w-2.5 h-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]'
+            : 'w-2 h-2 rounded-full bg-slate-300';
+        }
+      }
+    }
+
+    function nextGroundingStep() {
+      if (groundingStep <= 1) {
+        // DO NOT exit to home! Loop back to 5 smoothly!
+        resetGrounding(5);
+        return;
+      }
+      groundingStep--;
+      updateGroundingUI();
+    }
+    }
+
+    // Scanner Modal
+    function openScanModal() {
+      const m = document.getElementById('scanModal');
+      if (m) m.classList.remove('hidden');
+    }
+    function closeScanModal() {
+      const m = document.getElementById('scanModal');
+      if (m) m.classList.add('hidden');
+    }
+
+    function syncDemoFlight(code) {
+      const p = FLIGHT_PRESETS[code] || FLIGHT_PRESETS['RO391'];
+      activeFlightCode = code;
+      localStorage.setItem('flycalm_active_flight', code);
+
+      // Update Header badge
+      const badge = document.getElementById('homeFlightBadge');
+      if (badge) badge.textContent = `${p.flightNumber} • ${p.origin.iata} → ${p.destination.iata}`;
+
+      // Update Before You Fly info
+      const bTitle = document.getElementById('beforeFlightTitle');
+      if (bTitle) bTitle.textContent = `${p.airline} ${p.flightNumber} • ${p.aircraft}`;
+      const bRoute = document.getElementById('beforeFlightRoute');
+      if (bRoute) bRoute.textContent = `${p.origin.city} (${p.origin.iata}) → ${p.destination.city} (${p.destination.iata}) • Seat 14B`;
+
+      // Update Map telemetry
+      const mapAlt = document.getElementById('mapAlt');
+      if (mapAlt) mapAlt.textContent = p.plannedAltitude;
+      const mapSpd = document.getElementById('mapSpeed');
+      if (mapSpd) mapSpd.textContent = p.cruiseSpeed;
+
+      // Update Airway SVG path
+      const airwayPath = document.getElementById('airwayPath');
+      const completedTrail = document.getElementById('completedTrail');
+      if (airwayPath) airwayPath.setAttribute('d', p.airwayCurve);
+      if (completedTrail) completedTrail.setAttribute('d', p.airwayCurve);
+
+      // Render updated waypoints on map
+      renderWaypoints(p);
+
+      // Recalculate progress position immediately
+      updateFlightProgress(currentProgress);
+
+      closeScanModal();
+      console.log('Switched active flight to:', p.flightNumber);
+    }
+
+    // Web Audio Synthesizer (Zero external audio files required, 100% offline)
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playAircraftSound(type) {
+      try {
+        const ctx = getAudioContext();
+        if (type === 'chime') {
+          const osc1 = ctx.createOscillator();
+          const gain1 = ctx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+          gain1.gain.setValueAtTime(0.25, ctx.currentTime);
+          gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+          osc1.connect(gain1);
+          gain1.connect(ctx.destination);
+          osc1.start();
+          osc1.stop(ctx.currentTime + 0.8);
+
+          setTimeout(() => {
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(440, ctx.currentTime); // A4
+            gain2.gain.setValueAtTime(0.25, ctx.currentTime);
+            gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+            osc2.start();
+            osc2.stop(ctx.currentTime + 0.9);
+          }, 280);
+          return;
+        }
+        if (type === 'airbus_ptu') {
+          for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sawtooth';
+              osc.frequency.setValueAtTime(140 + (i % 2) * 20, ctx.currentTime);
+              gain.gain.setValueAtTime(0.25, ctx.currentTime);
+              gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start();
+              osc.stop(ctx.currentTime + 0.12);
+            }, i * 220);
+          }
+        } else if (type === 'gear_down') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(80, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.4);
+          gain.gain.setValueAtTime(0.4, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.45);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.45);
+        } else {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(90, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.4);
+          gain.gain.setValueAtTime(0.3, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.8);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.8);
+        }
+      } catch (e) {
+        console.warn('AudioContext error:', e);
+      }
+    }
+
+    function playTrackAudio(type, title, time) {
+      playAircraftSound(type);
+    }
+
+    // =========================================================================
+    // CONTINUOUS CABIN ENGINE HUM GENERATOR (WEB AUDIO BROWN/PINK NOISE)
+    // =========================================================================
+    let ambientAudioCtx = null;
+    let ambientGainNode = null;
+    let ambientSourceNode = null;
+    let isAmbientPlaying = false;
+
+    function toggleAmbientHum() {
+      if (isAmbientPlaying) {
+        stopAmbientHum();
+      } else {
+        startAmbientHum();
+      }
+    }
+
+    function startAmbientHum() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        ambientAudioCtx = new AudioContext();
+
+        // 5 seconds buffer of pink/brown noise
+        const bufferSize = ambientAudioCtx.sampleRate * 5;
+        const noiseBuffer = ambientAudioCtx.createBuffer(1, bufferSize, ambientAudioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let lastOut = 0.0;
+
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          output[i] = (lastOut + (0.02 * white)) / 1.02; // Brown noise filter
+          lastOut = output[i];
+          output[i] *= 3.5; // Gain compensation
+        }
+
+        ambientSourceNode = ambientAudioCtx.createBufferSource();
+        ambientSourceNode.buffer = noiseBuffer;
+        ambientSourceNode.loop = true;
+
+        // Low-pass filter at 380 Hz to mimic sealed aircraft cabin acoustics
+        const lpf = ambientAudioCtx.createBiquadFilter();
+        lpf.type = 'lowpass';
+        lpf.frequency.setValueAtTime(380, ambientAudioCtx.currentTime);
+
+        // Subtle 115 Hz turbofan hum harmonic oscillator
+        const osc = ambientAudioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(115, ambientAudioCtx.currentTime);
+
+        const oscGain = ambientAudioCtx.createGain();
+        oscGain.gain.setValueAtTime(0.04, ambientAudioCtx.currentTime);
+        osc.connect(oscGain);
+
+        ambientGainNode = ambientAudioCtx.createGain();
+        ambientGainNode.gain.setValueAtTime(0.18, ambientAudioCtx.currentTime);
+
+        ambientSourceNode.connect(lpf);
+        lpf.connect(ambientGainNode);
+        oscGain.connect(ambientGainNode);
+
+        ambientGainNode.connect(ambientAudioCtx.destination);
+
+        ambientSourceNode.start(0);
+        osc.start(0);
+        isAmbientPlaying = true;
+
+        // Update UI badges & buttons
+        const btn = document.getElementById('btnAmbientHum');
+        const badge = document.getElementById('ambientBadge');
+        const icon = document.getElementById('ambientPlayIcon');
+        if (badge) badge.classList.remove('hidden');
+        if (btn) btn.className = 'w-9 h-9 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center shrink-0 shadow-sm active:scale-95 transition';
+        if (icon) icon.innerHTML = '<rect x="6" y="5" width="4" height="14" fill="white"/><rect x="14" y="5" width="4" height="14" fill="white"/>';
+        console.log('Ambient cabin jet noise active');
+      } catch (err) {
+        console.error('Error starting ambient noise:', err);
+      }
+    }
+
+    function stopAmbientHum() {
+      if (ambientAudioCtx) {
+        try {
+          ambientAudioCtx.close();
+        } catch (_) {}
+        ambientAudioCtx = null;
+      }
+      isAmbientPlaying = false;
+      const btn = document.getElementById('btnAmbientHum');
+      const badge = document.getElementById('ambientBadge');
+      const icon = document.getElementById('ambientPlayIcon');
+      if (badge) badge.classList.add('hidden');
+      if (btn) btn.className = 'w-9 h-9 rounded-full bg-sky-500 hover:bg-sky-400 text-white flex items-center justify-center shrink-0 shadow-sm active:scale-95 transition';
+      if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z" fill="white"/>';
+    }
+
+    // =========================================================================
+    // BEFORE YOU FLY CHECKLIST PERSISTENCE
+    // =========================================================================
+    function toggleChecklist(itemKey) {
+      const chk = document.getElementById('chk-' + itemKey);
+      if (!chk) return;
+      const state = JSON.parse(localStorage.getItem('flycalm_checklist') || '{}');
+      state[itemKey] = chk.checked;
+      localStorage.setItem('flycalm_checklist', JSON.stringify(state));
+    }
+
+    function loadChecklistState() {
+      const state = JSON.parse(localStorage.getItem('flycalm_checklist') || '{"stages":true,"offline":true}');
+      ['stages', 'audio', 'offline'].forEach(k => {
+        const el = document.getElementById('chk-' + k);
+        if (el && state[k] !== undefined) el.checked = state[k];
+      });
+    }
+
+    // Flight phases accordions
+    function togglePhaseItem(id) {
+      const content = document.getElementById(id + '-content');
+      const icon = document.getElementById(id + '-icon');
+      if (!content) return;
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        if (icon) icon.textContent = '−';
+      } else {
+        content.classList.add('hidden');
+        if (icon) icon.textContent = '+';
+      }
+    }
+
+    // =========================================================================
+    // COPILOT QUESTION FILTERING
+    // =========================================================================
+    function filterCopilot(cat) {
+      ['all', 'turb', 'thrust', 'safety'].forEach(c => {
+        const pill = document.getElementById('c-pill-' + c);
+        if (c === cat) {
+          if (pill) pill.className = 'px-2.5 py-1 rounded-full bg-[#1e293b] text-white shrink-0';
+        } else {
+          if (pill) pill.className = 'px-2.5 py-1 rounded-full bg-slate-200 text-slate-600 shrink-0';
+        }
+      });
+
+      document.querySelectorAll('.copilot-card').forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // =========================================================================
+    // REFLECTIONS JOURNAL PERSISTENCE (LOCALSTORAGE)
+    // =========================================================================
+    let selectedFeel = 'As expected';
+
+    function selectPill(btn) {
+      document.querySelectorAll('.pill-btn').forEach(b => {
+        b.className = 'pill-btn py-2 px-1 text-center rounded-xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:border-slate-400 transition';
+      });
+      btn.className = 'pill-btn py-2 px-1 text-center rounded-xl border border-[#1e293b] bg-[#1e293b] text-white text-xs font-semibold transition';
+      selectedFeel = btn.textContent.trim();
+    }
+
+    function saveCurrentReflection() {
+      const noteInput = document.getElementById('reflectionNoteInput');
+      const note = noteInput ? noteInput.value.trim() : '';
+      const p = FLIGHT_PRESETS[activeFlightCode] || FLIGHT_PRESETS['RO391'];
+
+      const newEntry = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        flight: p.flightNumber,
+        route: `${p.origin.iata} → ${p.destination.iata}`,
+        feel: selectedFeel,
+        note: note || 'Felt grounded and used paced breathing during cruise.'
+      };
+
+      const history = JSON.parse(localStorage.getItem('flycalm_reflections') || '[]');
+      history.unshift(newEntry);
+      localStorage.setItem('flycalm_reflections', JSON.stringify(history));
+
+      if (noteInput) noteInput.value = '';
+      renderReflections();
+      alert('Your reflection has been safely recorded on your device!');
+      goToScreen('home');
+    }
+
+    function renderReflections() {
+      const listEl = document.getElementById('reflectionHistoryList');
+      const countEl = document.getElementById('reflectionCountBadge');
+      if (!listEl) return;
+
+      const history = JSON.parse(localStorage.getItem('flycalm_reflections') || '[]');
+      if (history.length === 0) {
+        history.push({
+          id: 1,
+          date: 'Yesterday',
+          flight: 'RO391',
+          route: 'OTP → CDG',
+          feel: 'Easier',
+          note: 'Box breathing kept my heart rate calm during climb.'
+        });
+      }
+
+      if (countEl) countEl.textContent = `${history.length} saved`;
+
+      listEl.innerHTML = history.map(item => `
+        <div class="p-2.5 rounded-xl bg-white border border-slate-200 text-left text-xs space-y-1">
+          <div class="flex items-center justify-between font-bold">
+            <span class="text-slate-800">${item.flight} (${item.route})</span>
+            <span class="text-[10px] font-mono text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full">${item.feel}</span>
+          </div>
+          <div class="text-[11px] text-slate-500 italic">"${item.note}"</div>
+          <div class="text-[9px] text-slate-400">${item.date}</div>
+        </div>
+      `).join('');
+    }
+
+    // Live clock update
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const clockEl = document.getElementById('androidClock');
+      if (clockEl) clockEl.textContent = `${h}:${m}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Initialize all persistent data on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      syncDemoFlight(activeFlightCode);
+      loadChecklistState();
+      renderReflections();
+    });
+  </script>
+</body>
+</html>
+
