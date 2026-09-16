@@ -8,6 +8,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>fly calm</title>
+    <script>
+    tailwind = {
+      config: {
+        darkMode: 'class'
+      }
+    }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -245,7 +252,6 @@
       background-color: #0b131f !important;
       box-shadow: 0 0 0 12px #162334, 0 0 0 14px #0c1420, 0 25px 60px rgba(0,0,0,0.95) !important;
     }
-
     /* Day / Night Slider Component with Serene Baby Blue Accents */
     .theme-slider-track {
       position: relative;
@@ -260,7 +266,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 5px;
+      padding: 0 6px;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     html.dark .theme-slider-track {
@@ -283,6 +289,7 @@
       justify-content: center;
       transform: translateX(0px);
       transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), background-color 0.25s ease, border-color 0.25s ease;
+      z-index: 2;
     }
     html.dark .theme-slider-thumb {
       transform: translateX(27px) !important;
@@ -290,6 +297,37 @@
       border-color: rgba(56, 189, 248, 0.6) !important;
       box-shadow: 0 2px 6px rgba(56, 189, 248, 0.35) !important;
     }
+
+    /* Strict Thumb Icon Switching (Immune to OS dark-mode media query) */
+    .thumb-sun-svg {
+      display: block !important;
+    }
+    .thumb-moon-svg {
+      display: none !important;
+    }
+    html.dark .thumb-sun-svg {
+      display: none !important;
+    }
+    html.dark .thumb-moon-svg {
+      display: block !important;
+    }
+
+    /* Track Destination Icons */
+    .track-sun-svg {
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .track-moon-svg {
+      opacity: 0.85;
+      transition: opacity 0.25s ease;
+    }
+    html.dark .track-sun-svg {
+      opacity: 0.85;
+    }
+    html.dark .track-moon-svg {
+      opacity: 0;
+    }
+
   </style>
 </head>
 <body class="bg-[#f8fafc]">
@@ -316,24 +354,24 @@
                 <!-- In-App Menu Button (Opens In-Phone Drawer) -->
                 <!-- Day / Night Slider (Smooth tactile toggle with serene baby-blue vectors) -->
                 <button type="button" onclick="toggleTheme()" id="headerThemeSlider" title="Switch Day / Night Flight Mode" aria-label="Toggle Day / Night Flight Mode" role="switch" class="theme-slider-track active:scale-95 shrink-0 mr-1">
-                  <!-- Track Left: Baby Blue Sun Indicator -->
-                  <svg class="w-3 h-3 text-sky-400 shrink-0 select-none pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <!-- Track Left: Baby Blue Sun Destination Hint -->
+                  <svg class="track-sun-svg w-3 h-3 text-sky-400 shrink-0 select-none pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="3.5"></circle>
                     <path stroke-linecap="round" d="M12 2.5v1.5m0 16v1.5M4.93 4.93l1.1 1.1m11.94 11.94l1.1 1.1M2.5 12H4m16 0h1.5M6.03 17.97l-1.1 1.1m14.14-14.14l-1.1 1.1"></path>
                   </svg>
-                  <!-- Track Right: Baby Blue Moon Indicator -->
-                  <svg class="w-3 h-3 text-sky-400 shrink-0 select-none pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <!-- Track Right: Baby Blue Moon Destination Hint -->
+                  <svg class="track-moon-svg w-3 h-3 text-sky-400 shrink-0 select-none pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                   </svg>
-                  <!-- Sliding Knob with Baby Blue Vectors -->
+                  <!-- Sliding Knob with Active State Vector -->
                   <div class="theme-slider-thumb pointer-events-none">
                     <!-- Day Sun in Knob (Baby Blue) -->
-                    <svg class="w-3 h-3 text-sky-500 dark:hidden select-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <svg class="thumb-sun-svg w-3 h-3 text-sky-500 select-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="3.5"></circle>
                       <path stroke-linecap="round" d="M12 2.5v1.5m0 16v1.5M4.93 4.93l1.1 1.1m11.94 11.94l1.1 1.1M2.5 12H4m16 0h1.5M6.03 17.97l-1.1 1.1m14.14-14.14l-1.1 1.1"></path>
                     </svg>
                     <!-- Night Moon in Knob (Baby Blue) -->
-                    <svg class="w-3 h-3 text-sky-400 hidden dark:block select-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <svg class="thumb-moon-svg w-3 h-3 text-sky-400 select-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                     </svg>
                   </div>
@@ -1376,19 +1414,19 @@
               </div>
               <!-- Day / Night Slider -->
               <button type="button" onclick="toggleTheme()" title="Switch Day / Night Flight Mode" aria-label="Toggle Day / Night Flight Mode" role="switch" class="theme-slider-track active:scale-95 shrink-0">
-                <svg class="w-3 h-3 text-sky-400 shrink-0 select-none pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg class="track-sun-svg w-3 h-3 text-sky-400 shrink-0 select-none pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="3.5"></circle>
                   <path stroke-linecap="round" d="M12 2.5v1.5m0 16v1.5M4.93 4.93l1.1 1.1m11.94 11.94l1.1 1.1M2.5 12H4m16 0h1.5M6.03 17.97l-1.1 1.1m14.14-14.14l-1.1 1.1"></path>
                 </svg>
-                <svg class="w-3 h-3 text-sky-400 shrink-0 select-none pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg class="track-moon-svg w-3 h-3 text-sky-400 shrink-0 select-none pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                 </svg>
                 <div class="theme-slider-thumb pointer-events-none">
-                  <svg class="w-3 h-3 text-sky-500 dark:hidden select-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <svg class="thumb-sun-svg w-3 h-3 text-sky-500 select-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="3.5"></circle>
                     <path stroke-linecap="round" d="M12 2.5v1.5m0 16v1.5M4.93 4.93l1.1 1.1m11.94 11.94l1.1 1.1M2.5 12H4m16 0h1.5M6.03 17.97l-1.1 1.1m14.14-14.14l-1.1 1.1"></path>
                   </svg>
-                  <svg class="w-3 h-3 text-sky-400 hidden dark:block select-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <svg class="thumb-moon-svg w-3 h-3 text-sky-400 select-none" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                   </svg>
                 </div>
