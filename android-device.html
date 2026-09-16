@@ -76,6 +76,135 @@
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
+  
+    /* =========================================================================
+       NIGHT FLIGHT / DARK MODE (EXACT MATCH TO REFERENCE SCREENSHOT)
+       ========================================================================= */
+    html.dark, html.dark body, html.dark #mobileAppShell {
+      background-color: #0b131f !important;
+      color: #f8fafc !important;
+    }
+
+    html.dark .screen-view {
+      background-color: #0b131f !important;
+      color: #f8fafc !important;
+    }
+
+    /* Cards & Containers in Dark Mode */
+    html.dark .bg-white {
+      background-color: #131d2b !important;
+      border-color: #1e2d42 !important;
+      color: #f8fafc !important;
+    }
+
+    html.dark .bg-slate-50 {
+      background-color: #142030 !important;
+      border-color: #1e2d42 !important;
+      color: #f8fafc !important;
+    }
+
+    html.dark .bg-slate-100 {
+      background-color: #1a293d !important;
+      border-color: #24364f !important;
+      color: #cbd5e1 !important;
+    }
+
+    html.dark .bg-slate-200 {
+      background-color: #1f3149 !important;
+      color: #94a3b8 !important;
+    }
+
+    /* Borders in Dark Mode */
+    html.dark .border-slate-200,
+    html.dark .border-slate-200\/80,
+    html.dark .border-slate-200\/90,
+    html.dark .border-slate-100 {
+      border-color: #1e2d42 !important;
+    }
+
+    html.dark .border-slate-300 {
+      border-color: #2a3c56 !important;
+    }
+
+    /* Typography in Dark Mode */
+    html.dark .text-slate-900,
+    html.dark .text-slate-800 {
+      color: #f8fafc !important;
+    }
+
+    html.dark .text-slate-700,
+    html.dark .text-slate-600 {
+      color: #cbd5e1 !important;
+    }
+
+    html.dark .text-slate-500 {
+      color: #94a3b8 !important;
+    }
+
+    html.dark .text-slate-400 {
+      color: #64748b !important;
+    }
+
+    /* Primary Radar Card in Dark Mode */
+    html.dark .bg-gradient-to-br {
+      background: linear-gradient(135deg, rgba(56,189,248,0.12) 0%, #131d2b 100%) !important;
+      border-color: #223752 !important;
+    }
+
+    /* Fixed Bottom Dock in Dark Mode */
+    html.dark #mobileBottomDock {
+      background: rgba(11, 19, 31, 0.96) !important;
+      border-top-color: #1e2d42 !important;
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* Pinned I Feel Anxious Capsule in Dark Mode: Luminous sky-blue pill with deep dark navy text */
+    html.dark #dockAnxiousBtn {
+      background-color: #85bce5 !important;
+      color: #0b131f !important;
+      box-shadow: 0 4px 16px rgba(133, 188, 229, 0.28) !important;
+    }
+
+    html.dark #dockAnxiousBtn span:first-child {
+      background-color: #0b131f !important;
+      box-shadow: 0 0 10px rgba(11, 19, 31, 0.8) !important;
+    }
+
+    /* Primary Action Pills on Dark Mode (e.g. Next on SOS) */
+    html.dark #groundingNextBtn {
+      background-color: #85bce5 !important;
+      color: #0b131f !important;
+    }
+
+    /* Breathing arena in Dark Mode */
+    html.dark .breathing-ring {
+      background-color: rgba(56, 189, 248, 0.12) !important;
+      border-color: #38bdf8 !important;
+    }
+
+    /* Radar Map in Dark Mode */
+    html.dark svg rect.fill-sky-50\/40,
+    html.dark #liveRadarSvg rect {
+      fill: #0d1726 !important;
+    }
+
+    /* In-App Drawer in Dark Mode */
+    html.dark #inAppDrawer > div {
+      background-color: #0d1624 !important;
+      color: #f8fafc !important;
+      border-left: 1px solid #1e2d42 !important;
+    }
+
+    html.dark #inAppDrawer button:hover {
+      background-color: #152233 !important;
+    }
+
+    /* Phone chassis simulated container in Dark Mode */
+    html.dark .phone-body {
+      background-color: #0b131f !important;
+      box-shadow: 0 0 0 12px #162334, 0 0 0 14px #0c1420, 0 25px 60px rgba(0,0,0,0.95) !important;
+    }
+
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-3 text-slate-800">
@@ -120,6 +249,10 @@
                   RO391 &bull; OTP &rarr; CDG
                 </span>
                 <!-- In-App Menu Button (Opens In-Phone Drawer) -->
+                <button onclick="toggleTheme()" title="Switch Light/Night Flight" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 flex items-center justify-center transition active:scale-95 mr-1">
+                  <svg class="w-3.5 h-3.5 text-slate-700 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                  <svg class="w-3.5 h-3.5 text-amber-400 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
                 <button onclick="toggleInAppMenu()" title="Open App Menu" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 flex items-center justify-center text-slate-700 transition active:scale-95">
                   <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
@@ -139,7 +272,7 @@
 
             <!-- HERO IMAGE: REAL USER WING ARTWORK -->
             <div class="my-3 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative h-32 bg-slate-100">
-              <img src="assets/img/hero_home_wing.png" alt="Airplane wing over green landscape" class="w-full h-full object-cover object-center" />
+              <img id="heroImgHome" src="assets/img/hero_home_wing.png" alt="Airplane wing over green landscape" class="w-full h-full object-cover object-center" />
             </div>
 
             <!-- FEATURED CARD: LIVE FLIGHT MAP PREVIEW -->
@@ -774,7 +907,7 @@
               <!-- REAL AIRPLANE WINDOW WITH SOFT ORGANIC OVAL PORTHOLE (ZERO HARSH SQUARE EDGES) -->
               <div class="my-4 flex justify-center">
                 <div class="relative w-36 h-48 rounded-[48px] p-2.5 flex items-center justify-center bg-gradient-to-b from-sky-100/50 via-sky-50/15 to-transparent shadow-[0_16px_36px_-8px_rgba(56,189,248,0.22)]">
-                  <img src="assets/img/hero_sos_window.png" alt="Airplane window" class="w-full h-full object-contain filter drop-shadow-[0_8px_16px_rgba(56,189,248,0.2)]" style="mask-image: radial-gradient(ellipse at center, black 62%, transparent 98%); -webkit-mask-image: radial-gradient(ellipse at center, black 62%, transparent 98%);" />
+                  <img id="heroImgSos" src="assets/img/hero_sos_window.png" alt="Airplane window" class="w-full h-full object-contain filter drop-shadow-[0_8px_16px_rgba(56,189,248,0.2)]" style="mask-image: radial-gradient(ellipse at center, black 62%, transparent 98%); -webkit-mask-image: radial-gradient(ellipse at center, black 62%, transparent 98%);" />
                 </div>
               </div>
 
@@ -862,7 +995,7 @@
 
             <!-- HERO IMAGE: REAL USER TRAY TABLE ARTWORK -->
             <div class="my-3 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative h-32 bg-slate-100">
-              <img src="assets/img/hero_before_tray.png" alt="Tray table with coffee and boarding pass" class="w-full h-full object-cover object-center" />
+              <img id="heroImgBefore" src="assets/img/hero_before_tray.png" alt="Tray table with coffee and boarding pass" class="w-full h-full object-cover object-center" />
             </div>
 
             <!-- BOARDING PASS SYNC CARD -->
@@ -1015,7 +1148,7 @@
 
             <!-- REAL USER MOUNTAIN VALLEY IMAGE -->
             <div class="my-3 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative h-28 bg-slate-100">
-              <img src="assets/img/hero_audio_clouds.png" alt="Cloud layers" class="w-full h-full object-cover object-center" />
+              <img id="heroImgAudio" src="assets/img/hero_audio_clouds.png" alt="Cloud layers" class="w-full h-full object-cover object-center" />
             </div>
 
             <div class="flex items-center gap-6 border-b border-slate-200 pb-2 mb-3 text-xs font-semibold text-slate-400">
@@ -1096,7 +1229,7 @@
 
             <!-- REAL USER RUNWAY & TOWER IMAGE -->
             <div class="my-3 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative h-32 bg-slate-100">
-              <img src="assets/img/hero_landing_runway.png" alt="Runway and terminal after landing" class="w-full h-full object-cover object-center" />
+              <img id="heroImgLanding" src="assets/img/hero_landing_runway.png" alt="Runway and terminal after landing" class="w-full h-full object-cover object-center" />
             </div>
 
             <div class="text-xs font-bold text-slate-700 mb-2">How did the flight feel?</div>
@@ -1140,6 +1273,23 @@
                 <span class="font-bold text-slate-900 text-sm">App Directory</span>
               </div>
               <button onclick="toggleInAppMenu()" class="w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+            </div>
+
+            <!-- Night Flight Mode Toggle Switch -->
+            <div class="mt-3 p-2.5 rounded-2xl bg-slate-50 dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-xl bg-sky-50 dark:bg-sky-950/60 flex items-center justify-center text-sky-400">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Night Flight</div>
+                  <div class="text-[9px] text-slate-500 dark:text-slate-400">Dark cockpit mode</div>
+                </div>
+              </div>
+              <button onclick="toggleTheme()" class="px-2.5 py-1 rounded-xl text-[10px] font-bold border transition active:scale-95 bg-white dark:bg-[#1a293d] text-slate-700 dark:text-sky-300 border-slate-300 dark:border-slate-600">
+                <span class="theme-turn-on">Turn ON</span>
+                <span class="theme-turn-off hidden">Turn OFF</span>
+              </button>
             </div>
 
             <!-- All Screen Navigation Directory inside Phone -->
@@ -1920,6 +2070,54 @@
       }, 1200);
     }
 
+    
+    // =========================================================================
+    // NIGHT FLIGHT (DARK MODE) ENGINE
+    // =========================================================================
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('flycalm_theme', isDark ? 'dark' : 'light');
+      applyThemeState(isDark);
+    }
+
+    function applyThemeState(isDark) {
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      // Update hero artwork between light and dark variants
+      const heroes = [
+        { id: 'heroImgHome', light: 'assets/img/hero_home_wing.png', dark: 'assets/img/hero_home_wing_dark.png' },
+        { id: 'heroImgSos', light: 'assets/img/hero_sos_window.png', dark: 'assets/img/hero_sos_window_dark.png' },
+        { id: 'heroImgBefore', light: 'assets/img/hero_before_tray.png', dark: 'assets/img/hero_before_tray_dark.png' },
+        { id: 'heroImgAudio', light: 'assets/img/hero_audio_clouds.png', dark: 'assets/img/hero_audio_clouds_dark.png' },
+        { id: 'heroImgLanding', light: 'assets/img/hero_landing_runway.png', dark: 'assets/img/hero_landing_runway_dark.png' }
+      ];
+
+      heroes.forEach(h => {
+        const el = document.getElementById(h.id);
+        if (el) {
+          el.src = isDark ? h.dark : h.light;
+        }
+      });
+
+      // Update Drawer night flight status labels
+      const turnOnText = document.querySelectorAll('.theme-turn-on');
+      const turnOffText = document.querySelectorAll('.theme-turn-off');
+      turnOnText.forEach(el => el.classList.toggle('hidden', isDark));
+      turnOffText.forEach(el => el.classList.toggle('hidden', !isDark));
+    }
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('flycalm_theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+      applyThemeState(shouldBeDark);
+    }
+
+
     // =========================================================================
     // SOS MODE & PACED BREATHING ENGINE
     // =========================================================================
@@ -2409,6 +2607,7 @@
 
     // Initialize all persistent data on page load
     window.addEventListener('DOMContentLoaded', () => {
+      initTheme();
       syncDemoFlight(activeFlightCode);
       loadChecklistState();
       renderReflections();
