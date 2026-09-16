@@ -295,6 +295,34 @@
       opacity: 0;
     }
 
+
+    /* ========================================================================= */
+    /* FULL EXPANSION STYLES (MEDITATION, PODCASTS, CREW CARDS, PASSPORT, GAME)   */
+    /* ========================================================================= */
+    .passport-stamp {
+      border: 2px dashed #38bdf8;
+      transform: rotate(-3deg);
+      transition: all 0.3s ease;
+    }
+    .passport-stamp.unlocked {
+      border-color: #0284c7;
+      background: rgba(56, 189, 248, 0.08);
+    }
+    html.dark .passport-stamp.unlocked {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.15);
+    }
+    .equalizer-bar {
+      animation: eqBounce 1.2s infinite ease-in-out alternate;
+    }
+    @keyframes eqBounce {
+      0% { height: 4px; }
+      100% { height: 16px; }
+    }
+    #zenGameCanvas {
+      touch-action: none;
+    }
+
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-3 text-slate-800">
@@ -335,6 +363,11 @@
                 <span class="text-base font-bold text-slate-800 tracking-tight">fly calm</span>
               </div>
               <div class="flex items-center gap-1.5">
+                                <!-- Connectivity Indicator Pill (Tap to simulate Airplane Mode) -->
+                <button type="button" onclick="toggleSimulatedOffline()" id="networkStatusBadge" title="Tap to toggle In-Flight (Offline) Mode demo" class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800/60 flex items-center gap-1 cursor-pointer transition active:scale-95 shrink-0">
+                  <span id="networkDot" class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span id="networkText">Online</span>
+                </button>
                 <span id="homeFlightBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
                   RO391 &bull; OTP &rarr; CDG
                 </span>
@@ -383,6 +416,43 @@
             <!-- HERO IMAGE: REAL USER WING ARTWORK -->
             <div class="my-3 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm relative h-32 bg-slate-100">
               <img id="heroImgHome" src="assets/img/hero_home_wing.png" alt="Airplane wing over green landscape" class="w-full h-full object-cover object-center" />
+            </div>
+
+                        <!-- CALM PASSPORT & GAMIFICATION CARD -->
+            <div onclick="openPassportModal()" class="mb-3 p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200/80 dark:border-[#1e2d42] shadow-sm cursor-pointer hover:border-sky-300 dark:hover:border-sky-500/40 active:scale-[0.99] transition">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-xl bg-sky-50 dark:bg-sky-950/60 flex items-center justify-center text-sky-400">
+                    <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                      <span>The Calm Passport</span>
+                      <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/40">Tier 1 Explorer</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400"><span id="passportMilesCounter">1,870</span> Calm Miles &bull; <span id="passportBadgesCounter">4</span> Badges</div>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-sky-400 bg-sky-50 dark:bg-sky-950/80 px-2 py-0.5 rounded-full">Open &rarr;</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1.5 text-center pt-1 border-t border-slate-100 dark:border-[#1e2d42]">
+                <div class="p-1.5 rounded-xl bg-slate-50 dark:bg-[#0e1726] border border-slate-200/60 dark:border-slate-800">
+                  <div class="text-xs">🏅</div>
+                  <div class="text-[8px] font-bold text-slate-600 dark:text-slate-300 mt-0.5">Takeoff Brave</div>
+                </div>
+                <div class="p-1.5 rounded-xl bg-slate-50 dark:bg-[#0e1726] border border-slate-200/60 dark:border-slate-800">
+                  <div class="text-xs">🛡️</div>
+                  <div class="text-[8px] font-bold text-slate-600 dark:text-slate-300 mt-0.5">Air Pocket Pro</div>
+                </div>
+                <div class="p-1.5 rounded-xl bg-slate-50 dark:bg-[#0e1726] border border-slate-200/60 dark:border-slate-800">
+                  <div class="text-xs">🧘</div>
+                  <div class="text-[8px] font-bold text-slate-600 dark:text-slate-300 mt-0.5">Zen Master</div>
+                </div>
+                <div class="p-1.5 rounded-xl bg-slate-50 dark:bg-[#0e1726] border border-slate-200/60 dark:border-slate-800">
+                  <div class="text-xs">✈️</div>
+                  <div class="text-[8px] font-bold text-slate-600 dark:text-slate-300 mt-0.5">Paris Stamp</div>
+                </div>
+              </div>
             </div>
 
             <!-- FEATURED CARD: LIVE FLIGHT MAP PREVIEW -->
@@ -490,6 +560,23 @@
               <button onclick="toggleInAppMenu()" class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs">
                 <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
               </button>
+            </div>
+
+                        <!-- MINDFUL DISTRACTION MINIGAME LAUNCHER -->
+            <div onclick="openZenGameModal()" class="mb-3 p-3 rounded-2xl bg-gradient-to-r from-sky-500/10 via-sky-50/50 to-white dark:from-sky-950/40 dark:via-[#131d2b] dark:to-[#0e1726] border border-sky-200 dark:border-sky-500/30 shadow-sm cursor-pointer hover:border-sky-400 active:scale-[0.99] transition flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-sky-500 text-white flex items-center justify-center text-sm shadow-sm">
+                  ✈️
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                    <span>Zen Glider &bull; Distraction Game</span>
+                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300">Clinically Calming</span>
+                  </div>
+                  <div class="text-[10px] text-slate-500 dark:text-slate-400">Glide through soft clouds &bull; Collect Calm Miles</div>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-sky-500 bg-white dark:bg-[#1a293d] border border-slate-200 dark:border-slate-700 px-2.5 py-1 rounded-xl shadow-xs">Play &rarr;</span>
             </div>
 
             <!-- In-Flight 4-Way Subtab Selector (Radar, Horizon, Sounds, Copilot) -->
@@ -1127,6 +1214,85 @@
               </div>
             </div>
 
+                        <!-- DESTINATION WEATHER & ROUTE INTEL (Microclimate & Clothing Advice) -->
+            <div class="p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm mb-3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-100">
+                  <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                  <span>Route &amp; Destination Climate Intel</span>
+                </div>
+                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800/60">Live Forecast</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2 p-2 rounded-xl bg-slate-50 dark:bg-[#0e1726] border border-slate-200/60 dark:border-slate-800 mb-2 text-xs">
+                <div>
+                  <div class="text-[9px] text-slate-400 uppercase font-bold">Departure &bull; <span id="intelOriginIata">OTP</span></div>
+                  <div class="font-extrabold text-slate-800 dark:text-slate-100" id="intelOriginTemp">32&deg;C &bull; Sunny</div>
+                  <div class="text-[9px] text-slate-500">Light tailwind</div>
+                </div>
+                <div class="border-l border-slate-200 dark:border-slate-800 pl-2">
+                  <div class="text-[9px] text-slate-400 uppercase font-bold">Arrival &bull; <span id="intelDestIata">CDG</span></div>
+                  <div class="font-extrabold text-sky-600 dark:text-sky-400" id="intelDestTemp">14&deg;C &bull; Light Rain</div>
+                  <div class="text-[9px] font-bold text-amber-600 dark:text-amber-400" id="intelDeltaTemp">-18&deg;C colder</div>
+                </div>
+              </div>
+              <div class="p-2 rounded-xl bg-sky-50/60 dark:bg-sky-950/40 border border-sky-200/60 dark:border-sky-800/40 text-[11px] space-y-1">
+                <div class="flex items-start gap-1.5 text-slate-700 dark:text-slate-300">
+                  <span class="text-sky-500 font-bold shrink-0">&bull;</span>
+                  <span id="intelAdviceClothing"><strong>Clothing Advice:</strong> Destination is 18&deg;C colder than departure. Keep a light jacket or scarf in your personal carry-on item for the arrival jet bridge.</span>
+                </div>
+                <div class="flex items-start gap-1.5 text-slate-700 dark:text-slate-300">
+                  <span class="text-sky-500 font-bold shrink-0">&bull;</span>
+                  <span id="intelAdviceAirway"><strong>Airway Forecast:</strong> Smooth climb. Expect gentle high-altitude ripples (0.08G) over Austria (min 42) crossing the Alpine jetstream. Cruise FL370 is safely above clouds.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CABIN CREW ADVOCATE CARDS (SILENT TAP-TO-SHOW) -->
+            <div class="p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm mb-3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-100">
+                  <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                  <span>Cabin Crew Advocate Cards</span>
+                </div>
+                <span class="text-[9px] text-slate-400 font-medium">Silent tap-to-show</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-2 leading-relaxed">
+                Discreet, pre-written polite cards to show flight attendants directly on your phone screen without needing to speak out loud.
+              </p>
+              <div class="space-y-1.5">
+                <button onclick="openCrewCard('sinusitis')" class="w-full p-2.5 rounded-xl bg-slate-50 hover:bg-sky-50 dark:bg-[#0e1726] dark:hover:bg-[#152233] border border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-left transition active:scale-[0.99]">
+                  <div class="flex items-center gap-2">
+                    <span class="text-base">👂</span>
+                    <div>
+                      <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Sinusitis &amp; Ear Pressure Assistance</div>
+                      <div class="text-[10px] text-slate-500 dark:text-slate-400">Advance descent notice &bull; Equalization assistance</div>
+                    </div>
+                  </div>
+                  <span class="text-xs font-bold text-sky-500">&rarr;</span>
+                </button>
+                <button onclick="openCrewCard('connection')" class="w-full p-2.5 rounded-xl bg-slate-50 hover:bg-sky-50 dark:bg-[#0e1726] dark:hover:bg-[#152233] border border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-left transition active:scale-[0.99]">
+                  <div class="flex items-center gap-2">
+                    <span class="text-base">⏱️</span>
+                    <div>
+                      <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Tight Connecting Flight Alert</div>
+                      <div class="text-[10px] text-slate-500 dark:text-slate-400">Gate notification &bull; Priority deplaning request</div>
+                    </div>
+                  </div>
+                  <span class="text-xs font-bold text-sky-500">&rarr;</span>
+                </button>
+                <button onclick="openCrewCard('anxiety')" class="w-full p-2.5 rounded-xl bg-slate-50 hover:bg-sky-50 dark:bg-[#0e1726] dark:hover:bg-[#152233] border border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-left transition active:scale-[0.99]">
+                  <div class="flex items-center gap-2">
+                    <span class="text-base">🤝</span>
+                    <div>
+                      <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Anxious Passenger Notice</div>
+                      <div class="text-[10px] text-slate-500 dark:text-slate-400">Calm reassurance &bull; Routine headphone notice</div>
+                    </div>
+                  </div>
+                  <span class="text-xs font-bold text-sky-500">&rarr;</span>
+                </button>
+              </div>
+            </div>
+
             <!-- INTERACTIVE CHECKLIST (SAVED TO LOCALSTORAGE) -->
             <div class="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-2">Your Flight Checklist</div>
             <div class="space-y-2 mb-4">
@@ -1261,60 +1427,157 @@
               <img id="heroImgAudio" src="assets/img/hero_audio_clouds.png" alt="Cloud layers" class="w-full h-full object-cover object-center" />
             </div>
 
-            <div class="flex items-center gap-6 border-b border-slate-200 pb-2 mb-3 text-xs font-semibold text-slate-400">
-              <button class="text-sky-400 border-b-2 border-sky-500 pb-2 -mb-2.5 font-bold">All</button>
-              <button class="hover:text-slate-700">Flight guides</button>
-              <button class="hover:text-slate-700">Calm</button>
+                        <!-- AUDIO CATEGORY FILTER PILLS -->
+            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 mb-3 text-[10px] font-bold">
+              <button onclick="filterAudioCategory('all')" id="audio-tab-all" class="px-3 py-1.5 rounded-full bg-[#1e293b] text-white shrink-0">All Tracks</button>
+              <button onclick="filterAudioCategory('meditation')" id="audio-tab-meditation" class="px-3 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">Guided Meditations</button>
+              <button onclick="filterAudioCategory('podcasts')" id="audio-tab-podcasts" class="px-3 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">Client Podcasts</button>
+              <button onclick="filterAudioCategory('ambient')" id="audio-tab-ambient" class="px-3 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">Cabin Ambience</button>
             </div>
 
-            <div class="space-y-2">
-              <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+            <!-- AUDIO TRACK LISTING -->
+            <div class="space-y-2 mb-4" id="audioTracksContainer">
+
+              <!-- GUIDED MEDITATIONS (CLINICAL SENSORY & SOMATIC ANCHORS) -->
+              <div class="audio-item p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm flex items-center justify-between" data-category="meditation">
                 <div class="flex items-center gap-3">
-                  <button onclick="playTrackAudio('engine_roar', 'Understanding takeoff', '2:10')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow">▶</button>
+                  <button onclick="playTrackAudio('med_takeoff', 'Takeoff Grounding &amp; Sensory Anchor', '5:00')" class="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs hover:bg-sky-600 shadow active:scale-95">▶</button>
                   <div>
-                    <div class="text-xs font-bold text-slate-800">Understanding takeoff</div>
-                    <div class="text-[10px] text-slate-400">2 min &bull; Captain Alexandru</div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                      <span>Takeoff Grounding &amp; Release</span>
+                      <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">5 min</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400">Dr. Elena &bull; Somatic anchoring &amp; jaw release</div>
                   </div>
                 </div>
-                <span class="text-sky-400 text-xs font-bold flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Saved</span></span>
+                <span class="text-[10px] font-bold text-sky-400">Guided</span>
               </div>
 
-              <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+              <div class="audio-item p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm flex items-center justify-between" data-category="meditation">
                 <div class="flex items-center gap-3">
-                  <button onclick="playTrackAudio('chime', 'A moment to reset', '3:00')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow">▶</button>
+                  <button onclick="playTrackAudio('med_cruise', 'Cruising Body Scan &amp; Armrest Release', '8:00')" class="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs hover:bg-sky-600 shadow active:scale-95">▶</button>
                   <div>
-                    <div class="text-xs font-bold text-slate-800">A moment to reset</div>
-                    <div class="text-[10px] text-slate-400">3 min &bull; Guided calm</div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                      <span>Cruising Body Scan</span>
+                      <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">8 min</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400">Progressive tension softening at FL370</div>
                   </div>
                 </div>
-                <span class="text-sky-400 text-xs font-bold flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Saved</span></span>
+                <span class="text-[10px] font-bold text-sky-400">Guided</span>
               </div>
 
-              <div class="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between">
+              <div class="audio-item p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm flex items-center justify-between" data-category="meditation">
                 <div class="flex items-center gap-3">
-                  <button onclick="playTrackAudio('airbus_ptu', 'Cabin sounds, explained', '4:15')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow">▶</button>
+                  <button onclick="playTrackAudio('med_turb', 'Turbulence Surrender (Boat on Calm Water)', '6:30')" class="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs hover:bg-sky-600 shadow active:scale-95">▶</button>
                   <div>
-                    <div class="text-xs font-bold text-slate-800">Cabin sounds, explained</div>
-                    <div class="text-[10px] text-slate-400">4 min &bull; PTU, gear &amp; flaps</div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                      <span>Turbulence Surrender</span>
+                      <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">6 min</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400">Somatic grounding through high-altitude bumps</div>
                   </div>
                 </div>
-                <span class="text-sky-400 text-xs font-bold flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span>Saved</span></span>
+                <span class="text-[10px] font-bold text-sky-400">Guided</span>
+              </div>
+
+              <!-- CLIENT PODCASTS ("FLY CALM WITH DR. ELENA") -->
+              <div class="audio-item p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm flex items-center justify-between" data-category="podcasts">
+                <div class="flex items-center gap-3">
+                  <button onclick="playTrackAudio('pod_12', 'Ep. 12: Why Planes Do Not Fall Out of the Sky', '18:20')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow active:scale-95">🎙️</button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                      <span>Ep. 12: Why Planes Do Not Fall</span>
+                      <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">18 min</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400">Fly Calm Podcast with Dr. Elena</div>
+                  </div>
+                </div>
+                <span class="text-sky-400 text-xs font-bold flex items-center gap-1">▶</span>
+              </div>
+
+              <div class="audio-item p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm flex items-center justify-between" data-category="podcasts">
+                <div class="flex items-center gap-3">
+                  <button onclick="playTrackAudio('pod_13', 'Ep. 13: Rewiring the Nervous System at 35,000 Ft', '22:40')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow active:scale-95">🎙️</button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                      <span>Ep. 13: Rewiring Nervous System</span>
+                      <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">22 min</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400">Neuroscience of anticipatory flight anxiety</div>
+                  </div>
+                </div>
+                <span class="text-sky-400 text-xs font-bold flex items-center gap-1">▶</span>
+              </div>
+
+              <div class="audio-item p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm flex items-center justify-between" data-category="podcasts">
+                <div class="flex items-center gap-3">
+                  <button onclick="playTrackAudio('pod_14', 'Ep. 14: Cockpit Secrets: What Pilots Do During Storms', '25:10')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow active:scale-95">🎙️</button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                      <span>Ep. 14: Cockpit Storm Decoded</span>
+                      <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">25 min</span>
+                    </div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400">With guest Captain Alexandru (Boeing 737)</div>
+                  </div>
+                </div>
+                <span class="text-sky-400 text-xs font-bold flex items-center gap-1">▶</span>
+              </div>
+
+              <!-- CABIN AMBIENT -->
+              <div class="audio-item p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm flex items-center justify-between" data-category="ambient">
+                <div class="flex items-center gap-3">
+                  <button onclick="playTrackAudio('engine_roar', 'Understanding Takeoff Engines', '2:10')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow active:scale-95">▶</button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Understanding Takeoff Engines</div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400">2 min &bull; Captain Alexandru</div>
+                  </div>
+                </div>
+                <span class="text-sky-400 text-xs font-bold">Saved</span>
+              </div>
+
+              <div class="audio-item p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm flex items-center justify-between" data-category="ambient">
+                <div class="flex items-center gap-3">
+                  <button onclick="playTrackAudio('chime', 'Two-Tone Seatbelt Chime &amp; Reset', '3:00')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow active:scale-95">▶</button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">A Moment to Reset</div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400">3 min &bull; Calming cabin frequency</div>
+                  </div>
+                </div>
+                <span class="text-sky-400 text-xs font-bold">Saved</span>
+              </div>
+
+              <div class="audio-item p-3 rounded-2xl bg-white dark:bg-[#131d2b] border border-slate-200 dark:border-[#1e2d42] shadow-sm flex items-center justify-between" data-category="ambient">
+                <div class="flex items-center gap-3">
+                  <button onclick="playTrackAudio('pink_noise', 'High-Altitude Pink Noise (Engine Mask)', '5:00')" class="w-8 h-8 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xs hover:bg-slate-800 shadow active:scale-95">▶</button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800 dark:text-slate-100">Aero Pink Noise Barrier</div>
+                    <div class="text-[10px] text-slate-500 dark:text-slate-400">Continuous soothing acoustic blanket</div>
+                  </div>
+                </div>
+                <span class="text-sky-400 text-xs font-bold">Saved</span>
               </div>
             </div>
 
-            <!-- Sticky Mini Player -->
-            <div class="mt-3 p-2.5 rounded-2xl bg-slate-900 text-white flex items-center justify-between shadow-lg">
-              <div class="flex items-center gap-2.5 flex-1 mr-2">
-                <button onclick="playAircraftSound('chime')" class="w-7 h-7 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs shrink-0">▶</button>
-                <div class="truncate">
-                  <div class="text-[11px] font-bold truncate">A moment to reset</div>
-                  <div class="w-24 h-1 bg-slate-700 rounded-full mt-1 overflow-hidden">
-                    <div class="bg-sky-400 h-full w-[35%]"></div>
-                  </div>
+            <!-- FLOATING MINI AUDIO PLAYER -->
+            <div id="audioPlayerBar" class="hidden p-3 rounded-2xl bg-[#1e293b] text-white shadow-lg mb-3 flex items-center justify-between transition">
+              <div class="flex items-center gap-3">
+                <div class="flex items-end gap-1 h-4 w-4">
+                  <span class="equalizer-bar w-1 bg-sky-400 rounded-full h-2"></span>
+                  <span class="equalizer-bar w-1 bg-sky-300 rounded-full h-4" style="animation-delay: 0.2s"></span>
+                  <span class="equalizer-bar w-1 bg-sky-400 rounded-full h-3" style="animation-delay: 0.4s"></span>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-white line-clamp-1" id="activeTrackTitle">Takeoff Grounding</div>
+                  <div class="text-[9px] text-sky-300" id="activeTrackDuration">0:45 / 5:00</div>
                 </div>
               </div>
-              <span class="text-[10px] font-mono text-slate-400">0:45 / 3:00</span>
+              <div class="flex items-center gap-2">
+                <button onclick="toggleActiveTrackPlay()" id="btnAudioPlayPause" class="w-7 h-7 rounded-full bg-white text-slate-900 flex items-center justify-center text-xs font-bold shadow">❚❚</button>
+                <button onclick="stopActiveTrack()" class="w-7 h-7 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-xs">✕</button>
+              </div>
             </div>
+
           </div>
         </div>
 
@@ -1487,7 +1750,12 @@
           </div>
 
           <div class="space-y-1.5 pt-1">
-            <span class="text-[10px] font-bold text-slate-400 uppercase">Or test with an authentic airline route:</span>
+                        <div class="flex items-center justify-between pb-1">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Interactive Camera & Test Passes:</span>
+              <button onclick="openSampleTicketModal()" class="text-[10px] font-bold text-sky-600 dark:text-sky-400 hover:underline">
+                📄 View Test Boarding Pass &rarr;
+              </button>
+            </div>
             <div class="grid grid-cols-1 gap-1.5 max-h-48 overflow-y-auto pr-1 no-scrollbar">
               <button onclick="syncDemoFlight('RO391')" class="w-full p-2 rounded-xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-xs font-bold text-slate-800 flex items-center justify-between text-left transition">
                 <span class="flex items-center gap-2">
@@ -1704,6 +1972,199 @@
       </div>
 
     </div>
+
+
+      <!-- ============================================== -->
+      <!-- MODAL 1: CABIN CREW ADVOCATE FULLSCREEN CARD   -->
+      <!-- ============================================== -->
+      <div id="crewCardModal" class="hidden absolute inset-0 bg-black/85 backdrop-blur-md z-50 flex flex-col justify-between p-6">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Show to Cabin Attendant</span>
+          <button onclick="closeCrewCard()" class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-sm active:scale-95">✕</button>
+        </div>
+
+        <div class="my-auto text-center space-y-4 max-w-xs mx-auto">
+          <div class="w-16 h-16 rounded-3xl bg-sky-500/20 text-sky-400 mx-auto flex items-center justify-center text-3xl" id="crewCardIcon">👂</div>
+          <h2 class="text-xl font-extrabold text-white leading-snug font-serif-title" id="crewCardTitle">
+            Sinusitis &amp; Ear Pressure Assistance
+          </h2>
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-700 text-slate-100 text-sm leading-relaxed font-medium text-left" id="crewCardMessage">
+            "Hello, I suffer from acute ear barotrauma &amp; sinus pressure during altitude transitions. Could you kindly give me advance notice 10–15 minutes prior to initial descent so I can administer decongestant spray &amp; prepare? Thank you for your assistance."
+          </div>
+          <p class="text-[11px] text-slate-400">The attendant can read this directly from your screen.</p>
+        </div>
+
+        <div>
+          <button onclick="closeCrewCard()" class="w-full py-3.5 rounded-2xl bg-white text-slate-900 font-bold text-xs shadow-md active:scale-95">
+            Done (Close Card)
+          </button>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- MODAL 2: THE CALM PASSPORT & ACHIEVEMENTS      -->
+      <!-- ============================================== -->
+      <div id="passportModal" class="hidden absolute inset-0 bg-black/80 backdrop-blur-md z-50 flex flex-col justify-end p-4">
+        <div class="bg-white dark:bg-[#131d2b] rounded-3xl p-5 space-y-3 max-h-[85vh] overflow-y-auto no-scrollbar">
+          <div class="flex items-center justify-between border-b border-slate-100 dark:border-[#1e2d42] pb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">🛂</span>
+              <div>
+                <span class="text-sm font-bold text-slate-900 dark:text-white">Your Calm Passport</span>
+                <div class="text-[10px] text-slate-500 dark:text-slate-400">Official Passenger Serenity Logbook</div>
+              </div>
+            </div>
+            <button onclick="closePassportModal()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center text-xs">✕</button>
+          </div>
+
+          <!-- Total Mileage Stats Banner -->
+          <div class="p-3.5 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-700 text-white shadow-md">
+            <div class="text-[10px] uppercase font-bold text-sky-100 tracking-wider">Total Calm Distance</div>
+            <div class="text-2xl font-black mt-0.5"><span id="passportModalMiles">1,870</span> <span class="text-sm font-normal text-sky-200">Miles Flown</span></div>
+            <div class="flex items-center justify-between mt-2 pt-2 border-t border-sky-400/40 text-[10px] text-sky-100">
+              <span>✈️ 3 Conquered Flights</span>
+              <span>🧘 12 Calm Sessions</span>
+              <span>⭐ Tier 1 Explorer</span>
+            </div>
+          </div>
+
+          <!-- Collective Passport Stamps Grid -->
+          <div class="space-y-1.5 pt-1">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Passport Stamps &amp; Honors</span>
+            <div class="grid grid-cols-2 gap-2">
+              <div class="p-3 rounded-2xl border border-sky-300/80 bg-sky-50/50 dark:bg-[#0c1626] dark:border-sky-500/30 text-left">
+                <div class="text-lg">🏅</div>
+                <div class="text-xs font-bold text-slate-800 dark:text-slate-100 mt-1">Takeoff Courage</div>
+                <div class="text-[9px] text-slate-500 dark:text-slate-400 leading-tight mt-0.5">Completed 4-7-8 breathwork through departure climb.</div>
+                <span class="inline-block mt-2 text-[8px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100/60 dark:bg-emerald-950 px-1.5 py-0.2 rounded-md">UNLOCKED</span>
+              </div>
+              <div class="p-3 rounded-2xl border border-sky-300/80 bg-sky-50/50 dark:bg-[#0c1626] dark:border-sky-500/30 text-left">
+                <div class="text-lg">🛡️</div>
+                <div class="text-xs font-bold text-slate-800 dark:text-slate-100 mt-1">Air Pocket Pro</div>
+                <div class="text-[9px] text-slate-500 dark:text-slate-400 leading-tight mt-0.5">Flew through high-altitude jetstream ripples safely.</div>
+                <span class="inline-block mt-2 text-[8px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100/60 dark:bg-emerald-950 px-1.5 py-0.2 rounded-md">UNLOCKED</span>
+              </div>
+              <div class="p-3 rounded-2xl border border-sky-300/80 bg-sky-50/50 dark:bg-[#0c1626] dark:border-sky-500/30 text-left">
+                <div class="text-lg">🧘</div>
+                <div class="text-xs font-bold text-slate-800 dark:text-slate-100 mt-1">Zen Navigator</div>
+                <div class="text-[9px] text-slate-500 dark:text-slate-400 leading-tight mt-0.5">Completed 8-min body scan &amp; somatic reset.</div>
+                <span class="inline-block mt-2 text-[8px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100/60 dark:bg-emerald-950 px-1.5 py-0.2 rounded-md">UNLOCKED</span>
+              </div>
+              <div class="p-3 rounded-2xl border border-sky-300/80 bg-sky-50/50 dark:bg-[#0c1626] dark:border-sky-500/30 text-left">
+                <div class="text-lg">🌍</div>
+                <div class="text-xs font-bold text-slate-800 dark:text-slate-100 mt-1">Trans-European</div>
+                <div class="text-[9px] text-slate-500 dark:text-slate-400 leading-tight mt-0.5">Logged international airway OTP &rarr; CDG.</div>
+                <span class="inline-block mt-2 text-[8px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100/60 dark:bg-emerald-950 px-1.5 py-0.2 rounded-md">UNLOCKED</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="closePassportModal()" class="w-full py-3 rounded-2xl bg-[#1e2d42] text-white text-xs font-bold shadow active:scale-95">
+            Close Passport
+          </button>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- MODAL 3: ZEN GLIDER CALMING MINIGAME           -->
+      <!-- ============================================== -->
+      <div id="zenGameModal" class="hidden absolute inset-0 bg-slate-900/95 z-50 flex flex-col justify-between p-4 select-none">
+        <div class="flex items-center justify-between text-white pb-2 border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="text-base">✈️</span>
+            <div>
+              <div class="text-xs font-bold text-white">Zen Glider</div>
+              <div class="text-[9px] text-sky-400">Tap anywhere to float gently upward</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-[9px] text-slate-400 uppercase">Calm Score</div>
+              <div class="text-sm font-mono font-black text-sky-400" id="zenGameScore">0</div>
+            </div>
+            <button onclick="closeZenGameModal()" class="w-7 h-7 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs">✕</button>
+          </div>
+        </div>
+
+        <!-- Canvas Arena -->
+        <div class="relative flex-1 my-2 rounded-2xl overflow-hidden bg-gradient-to-b from-sky-900/40 via-slate-900 to-slate-950 border border-slate-800 flex items-center justify-center">
+          <canvas id="zenGameCanvas" class="w-full h-full cursor-pointer"></canvas>
+          
+          <!-- Start / Game Over Overlay -->
+          <div id="zenGameOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center p-6 text-center text-white space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-2xl">✈️</div>
+            <h3 class="text-lg font-bold font-serif-title" id="zenOverlayTitle">Ready to Drift?</h3>
+            <p class="text-xs text-slate-300 max-w-xs leading-relaxed" id="zenOverlaySubtitle">
+              Tap smoothly to guide your plane through the clouds. Collecting calm stars builds your focus and adds to your real Calm Passport miles!
+            </p>
+            <button onclick="startZenGame()" class="py-2.5 px-6 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-bold text-xs shadow-lg active:scale-95 transition">
+              Start Gliding
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center text-[10px] text-slate-400">
+          Tip: Smooth, gentle taps mimic deep rhythmic breathing.
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- MODAL 4: SAMPLE TEST BOARDING PASS (SCANNABLE) -->
+      <!-- ============================================== -->
+      <div id="sampleTicketModal" class="hidden absolute inset-0 bg-black/85 backdrop-blur-md z-50 flex flex-col justify-end p-4">
+        <div class="bg-white dark:bg-[#131d2b] rounded-3xl p-5 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-100 dark:border-[#1e2d42] pb-2">
+            <span class="text-xs font-bold text-slate-800 dark:text-white">Sample Scannable Boarding Pass</span>
+            <button onclick="closeSampleTicketModal()" class="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center text-xs">✕</button>
+          </div>
+
+          <!-- Realistic Airline Boarding Pass Preview -->
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-[#0c1626] border-2 border-dashed border-sky-300/80 text-left space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
+              <div class="font-extrabold text-slate-900 dark:text-white text-xs tracking-wide">TAROM AIRLINES</div>
+              <div class="text-[10px] font-mono text-sky-600 dark:text-sky-400 font-bold">RO 0391 &bull; ECONOMY Y</div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 text-xs">
+              <div>
+                <div class="text-[9px] text-slate-400 uppercase">Passenger</div>
+                <div class="font-bold text-slate-800 dark:text-slate-100">DOE / JOHN</div>
+              </div>
+              <div>
+                <div class="text-[9px] text-slate-400 uppercase">Seat</div>
+                <div class="font-bold text-sky-600 dark:text-sky-400">14B (Aisle)</div>
+              </div>
+              <div>
+                <div class="text-[9px] text-slate-400 uppercase">Gate / Boarding</div>
+                <div class="font-bold text-slate-800 dark:text-slate-100">B04 &bull; 11:15</div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-1">
+              <div>
+                <div class="text-sm font-black text-slate-900 dark:text-white">OTP &rarr; CDG</div>
+                <div class="text-[9px] text-slate-500">Bucharest Otopeni to Paris Charles de Gaulle</div>
+              </div>
+              <!-- High-Contrast Scannable Barcode Mockup -->
+              <div class="w-16 h-16 bg-white p-1 rounded-lg border border-slate-300 flex items-center justify-center shadow-xs">
+                <!-- Authentic SVG QR / Aztec Barcode representation -->
+                <svg class="w-full h-full text-slate-950" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h4v2h-4v-2zm-4 0h2v4h-2v-4zm4 4h4v2h-4v-2zm-2-2h2v2h-2v-2zm-2 2h2v2h-2v-2zM6 6h2v2H6V6zm12 0h2v2h-2V6zm-12 12h2v2H6v-2z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-1">
+            <button onclick="simulateTicketScan('RO391')" class="w-full py-3 rounded-xl bg-sky-600 text-white text-xs font-bold shadow active:scale-95 transition">
+              ⚡ Scan This Ticket Now (Instant Sync)
+            </button>
+            <p class="text-[10px] text-slate-400 text-center">
+              You can also point another smartphone's camera at this screen to test live barcode scanning!
+            </p>
+          </div>
+        </div>
+      </div>
 
   </div>
 
@@ -2388,6 +2849,7 @@
     function syncDemoFlight(code) {
       const p = FLIGHT_PRESETS[code] || FLIGHT_PRESETS['RO391'];
       activeFlightCode = code;
+      updateClimateIntel(code);
       localStorage.setItem('flycalm_active_flight', code);
 
       // Update Header badge
@@ -2739,7 +3201,378 @@
     updateClock();
 
     // Initialize all persistent data on page load
+
+    // =========================================================================
+    // EXPANSION ENGINE (ONLINE/OFFLINE, PASSPORT, CREW CARDS, GAME, MEDITATION)
+    // =========================================================================
+
+    // 1. ONLINE / IN-FLIGHT (OFFLINE) STATUS ENGINE
+    let isSimulatedOffline = false;
+    function updateNetworkStatus() {
+      const isOnline = navigator.onLine && !isSimulatedOffline;
+      const badge = document.getElementById('networkStatusBadge');
+      const dot = document.getElementById('networkDot');
+      const text = document.getElementById('networkText');
+      if (!badge || !dot || !text) return;
+
+      if (isOnline) {
+        badge.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800/60 flex items-center gap-1 cursor-pointer transition active:scale-95 shrink-0';
+        dot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse';
+        text.textContent = 'Online';
+        badge.title = 'Online • Live weather & gate synced (Click to simulate offline)';
+      } else {
+        badge.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200 dark:bg-sky-950/80 dark:text-sky-300 dark:border-sky-800/60 flex items-center gap-1 cursor-pointer transition active:scale-95 shrink-0';
+        dot.className = 'w-1.5 h-1.5 rounded-full bg-sky-400';
+        text.textContent = '✈️ In-Flight Offline';
+        badge.title = 'In-Flight Mode • 100% Offline Safe & Active (Click to toggle)';
+      }
+    }
+
+    function toggleSimulatedOffline() {
+      isSimulatedOffline = !isSimulatedOffline;
+      updateNetworkStatus();
+    }
+
+    window.addEventListener('online', updateNetworkStatus);
+    window.addEventListener('offline', updateNetworkStatus);
+
+
+    // 2. THE CALM PASSPORT & GAMIFICATION ENGINE
+    let totalCalmMiles = parseInt(localStorage.getItem('flycalm_miles') || '1870', 10);
+    function openPassportModal() {
+      const m = document.getElementById('passportModal');
+      if (m) {
+        document.getElementById('passportModalMiles').textContent = totalCalmMiles.toLocaleString();
+        m.classList.remove('hidden');
+      }
+    }
+    function closePassportModal() {
+      const m = document.getElementById('passportModal');
+      if (m) m.classList.add('hidden');
+    }
+    function addCalmMiles(amount) {
+      totalCalmMiles += amount;
+      localStorage.setItem('flycalm_miles', totalCalmMiles.toString());
+      const el1 = document.getElementById('passportMilesCounter');
+      const el2 = document.getElementById('passportModalMiles');
+      if (el1) el1.textContent = totalCalmMiles.toLocaleString();
+      if (el2) el2.textContent = totalCalmMiles.toLocaleString();
+    }
+
+
+    // 3. CABIN CREW ADVOCATE CARDS
+    const CREW_CARDS_DATA = {
+      sinusitis: {
+        icon: '👂',
+        title: 'Sinusitis & Ear Pressure Assistance',
+        message: '"Hello, I suffer from acute ear barotrauma & sinus pressure during altitude transitions. Could you kindly give me advance notice 10–15 minutes prior to initial descent so I can administer decongestant spray & prepare? Thank you for your assistance."'
+      },
+      connection: {
+        icon: '⏱️',
+        title: 'Tight Connecting Flight Alert',
+        message: '"Hello, I have a very tight connecting flight at our destination airport (45-minute connection). Could you kindly check if our arrival gate is on schedule, and allow me priority disembarkation if possible? Thank you!"'
+      },
+      anxiety: {
+        icon: '🤝',
+        title: 'Anxious Passenger Discreet Notice',
+        message: '"Hello, I experience nervous flight anxiety. I will be doing gentle breathing exercises and wearing noise-isolating headphones throughout takeoff and mild turbulence. Thank you for your kindness and understanding."'
+      }
+    };
+
+    function openCrewCard(type) {
+      const data = CREW_CARDS_DATA[type];
+      if (!data) return;
+      document.getElementById('crewCardIcon').textContent = data.icon;
+      document.getElementById('crewCardTitle').textContent = data.title;
+      document.getElementById('crewCardMessage').textContent = data.message;
+      const m = document.getElementById('crewCardModal');
+      if (m) m.classList.remove('hidden');
+    }
+    function closeCrewCard() {
+      const m = document.getElementById('crewCardModal');
+      if (m) m.classList.add('hidden');
+    }
+
+
+    // 4. CLIMATE & ROUTE INTEL SYNCHRONIZER
+    const CLIMATE_PRESETS = {
+      RO391: { origin: 'OTP', originTemp: '32°C • Sunny', dest: 'CDG', destTemp: '14°C • Light Rain', delta: '-18°C colder', clothing: 'Paris is 18°C colder than departure. Keep a light jacket or cardigan in your carry-on for the arrival jet bridge.', airway: 'Smooth climb out of Romania. Minor high-altitude ripples (0.08G) expected over Austria (min 42) crossing the Alpine jetstream. Cruise FL370 is safely above weather.' },
+      LH1420: { origin: 'FRA', originTemp: '16°C • Overcast', dest: 'OTP', destTemp: '31°C • Warm & Dry', delta: '+15°C warmer', clothing: 'Bucharest is 15°C warmer than Frankfurt. Dress in comfortable breathable layers.', airway: 'Gentle climb over Bavaria. Calm cruising along the Danube airway corridor.' },
+      BA178: { origin: 'JFK', originTemp: '24°C • Fair', dest: 'LHR', destTemp: '15°C • Fog & Mist', delta: '-9°C cooler', clothing: 'London Heathrow is brisk and humid. A light trench coat or sweater is advised.', airway: 'North Atlantic Tracks: Moderate jetstream tailwinds. Occasional 0.12G chop near Greenland.' },
+      AF1140: { origin: 'CDG', originTemp: '14°C • Showers', dest: 'BCN', destTemp: '26°C • Sunny', delta: '+12°C warmer', clothing: 'Barcelona is warm and sunny. You will not need a heavy coat upon landing.', airway: 'Crossing the Pyrenees: Brief 0.09G mountain wave turbulence 30 minutes before arrival.' },
+      KL1382: { origin: 'AMS', originTemp: '13°C • Windy', dest: 'MAD', destTemp: '28°C • Clear', delta: '+15°C warmer', clothing: 'Madrid is hot and sunny. Pack your sweater in your overhead bag before landing.', airway: 'Smooth cruise across the Bay of Biscay and Iberian peninsula.' }
+    };
+
+    function updateClimateIntel(code) {
+      const data = CLIMATE_PRESETS[code] || CLIMATE_PRESETS['RO391'];
+      const oIata = document.getElementById('intelOriginIata');
+      const oTemp = document.getElementById('intelOriginTemp');
+      const dIata = document.getElementById('intelDestIata');
+      const dTemp = document.getElementById('intelDestTemp');
+      const delta = document.getElementById('intelDeltaTemp');
+      const cAdv = document.getElementById('intelAdviceClothing');
+      const aAdv = document.getElementById('intelAdviceAirway');
+
+      if (oIata) oIata.textContent = data.origin;
+      if (oTemp) oTemp.textContent = data.originTemp;
+      if (dIata) dIata.textContent = data.dest;
+      if (dTemp) dTemp.textContent = data.destTemp;
+      if (delta) delta.textContent = data.delta;
+      if (cAdv) cAdv.innerHTML = `<strong>Clothing Advice:</strong> ${data.clothing}`;
+      if (aAdv) aAdv.innerHTML = `<strong>Airway Forecast:</strong> ${data.airway}`;
+    }
+
+
+    // 5. AUDIO LIBRARY CATEGORIES & MINI-PLAYER
+    function filterAudioCategory(cat) {
+      const tabs = ['all', 'meditation', 'podcasts', 'ambient'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('audio-tab-' + t);
+        if (btn) {
+          if (t === cat) {
+            btn.className = 'px-3 py-1.5 rounded-full bg-[#1e293b] text-white shrink-0';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0';
+          }
+        }
+      });
+
+      const items = document.querySelectorAll('.audio-item');
+      items.forEach(item => {
+        const itemCat = item.getAttribute('data-category');
+        if (cat === 'all' || itemCat === cat) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    let activeAudioInterval = null;
+    let activeAudioSeconds = 0;
+    function playTrackAudio(trackId, title, dur) {
+      const playerBar = document.getElementById('audioPlayerBar');
+      const titleEl = document.getElementById('activeTrackTitle');
+      const durEl = document.getElementById('activeTrackDuration');
+      if (playerBar) playerBar.classList.remove('hidden');
+      if (titleEl) titleEl.textContent = title;
+      if (durEl) durEl.textContent = `0:01 / ${dur}`;
+
+      // Trigger Web Audio tone
+      if (trackId.startsWith('med_') || trackId.startsWith('pod_')) {
+        playAircraftSound('chime');
+        addCalmMiles(15); // Reward with Calm Passport miles
+      } else {
+        playAircraftSound(trackId);
+      }
+
+      if (activeAudioInterval) clearInterval(activeAudioInterval);
+      activeAudioSeconds = 1;
+      activeAudioInterval = setInterval(() => {
+        activeAudioSeconds++;
+        const mins = Math.floor(activeAudioSeconds / 60);
+        const secs = (activeAudioSeconds % 60).toString().padStart(2, '0');
+        if (durEl) durEl.textContent = `${mins}:${secs} / ${dur}`;
+      }, 1000);
+    }
+
+    function toggleActiveTrackPlay() {
+      const btn = document.getElementById('btnAudioPlayPause');
+      if (btn) {
+        if (btn.textContent === '❚❚') {
+          btn.textContent = '▶';
+          if (activeAudioInterval) clearInterval(activeAudioInterval);
+        } else {
+          btn.textContent = '❚❚';
+        }
+      }
+    }
+
+    function stopActiveTrack() {
+      const playerBar = document.getElementById('audioPlayerBar');
+      if (playerBar) playerBar.classList.add('hidden');
+      if (activeAudioInterval) clearInterval(activeAudioInterval);
+    }
+
+
+    // 6. ZEN GLIDER MINIGAME ENGINE (CALM FLAPPY-STYLE CANVAS GAME)
+    let zenGameRunning = false;
+    let zenAnimFrame = null;
+    let zenScore = 0;
+    let planeY = 150;
+    let planeVelocity = 0;
+    let zenClouds = [];
+    let zenStars = [];
+
+    function openZenGameModal() {
+      const m = document.getElementById('zenGameModal');
+      if (m) m.classList.remove('hidden');
+      resetZenGame();
+    }
+    function closeZenGameModal() {
+      const m = document.getElementById('zenGameModal');
+      if (m) m.classList.add('hidden');
+      zenGameRunning = false;
+      if (zenAnimFrame) cancelAnimationFrame(zenAnimFrame);
+    }
+
+    function resetZenGame() {
+      zenGameRunning = false;
+      zenScore = 0;
+      planeY = 140;
+      planeVelocity = 0;
+      zenClouds = [];
+      zenStars = [];
+      document.getElementById('zenGameScore').textContent = '0';
+      const overlay = document.getElementById('zenGameOverlay');
+      if (overlay) overlay.classList.remove('hidden');
+    }
+
+    function startZenGame() {
+      const overlay = document.getElementById('zenGameOverlay');
+      if (overlay) overlay.classList.add('hidden');
+      zenGameRunning = true;
+      planeY = 140;
+      planeVelocity = -1.5;
+      zenScore = 0;
+      zenClouds = [];
+      zenStars = [];
+
+      const canvas = document.getElementById('zenGameCanvas');
+      if (!canvas) return;
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+
+      // Event listener for taps
+      canvas.onpointerdown = (e) => {
+        e.preventDefault();
+        planeVelocity = -3.2; // Gentle lift
+      };
+
+      zenGameLoop();
+    }
+
+    function zenGameLoop() {
+      if (!zenGameRunning) return;
+      const canvas = document.getElementById('zenGameCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+
+      // Update plane physics
+      planeVelocity += 0.14; // Soft floaty gravity
+      planeY += planeVelocity;
+
+      if (planeY < 20) { planeY = 20; planeVelocity = 0; }
+      if (planeY > H - 30) { planeY = H - 30; planeVelocity = 0; }
+
+      // Spawn calm clouds
+      if (Math.random() < 0.02) {
+        zenClouds.push({ x: W + 50, y: Math.random() * (H - 80) + 40, size: Math.random() * 25 + 25, speed: 1.2 });
+      }
+      // Spawn calm stars (+10 miles)
+      if (Math.random() < 0.025) {
+        zenStars.push({ x: W + 20, y: Math.random() * (H - 100) + 50, collected: false });
+      }
+
+      // Draw Background
+      ctx.clearRect(0, 0, W, H);
+
+      // Draw and update Clouds
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+      for (let i = zenClouds.length - 1; i >= 0; i--) {
+        const c = zenClouds[i];
+        c.x -= c.speed;
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.size, 0, Math.PI * 2);
+        ctx.arc(c.x + c.size * 0.6, c.y - 10, c.size * 0.7, 0, Math.PI * 2);
+        ctx.arc(c.x + c.size * 1.2, c.y, c.size * 0.8, 0, Math.PI * 2);
+        ctx.fill();
+        if (c.x < -100) zenClouds.splice(i, 1);
+      }
+
+      // Draw and update Stars
+      for (let i = zenStars.length - 1; i >= 0; i--) {
+        const s = zenStars[i];
+        s.x -= 1.6;
+
+        // Draw Star
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, 6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#bae6fd';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Check collection
+        if (Math.abs(s.x - 70) < 22 && Math.abs(s.y - planeY) < 22 && !s.collected) {
+          s.collected = true;
+          zenScore += 10;
+          document.getElementById('zenGameScore').textContent = zenScore.toString();
+          addCalmMiles(10); // Directly adds to the user's Calm Passport!
+          playAircraftSound('chime');
+          zenStars.splice(i, 1);
+        } else if (s.x < -30) {
+          zenStars.splice(i, 1);
+        }
+      }
+
+      // Draw Paper Airplane
+      ctx.save();
+      ctx.translate(70, planeY);
+      const angle = Math.min(Math.max(planeVelocity * 0.08, -0.4), 0.4);
+      ctx.rotate(angle);
+
+      // Cute origami plane body
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.moveTo(18, 0);
+      ctx.lineTo(-14, -9);
+      ctx.lineTo(-8, 0);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = '#bae6fd';
+      ctx.beginPath();
+      ctx.moveTo(18, 0);
+      ctx.lineTo(-8, 0);
+      ctx.lineTo(-14, 9);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+
+      zenAnimFrame = requestAnimationFrame(zenGameLoop);
+    }
+
+
+    // 7. SAMPLE TICKET & SCANNER SIMULATOR
+    function openSampleTicketModal() {
+      const m = document.getElementById('sampleTicketModal');
+      if (m) m.classList.remove('hidden');
+    }
+    function closeSampleTicketModal() {
+      const m = document.getElementById('sampleTicketModal');
+      if (m) m.classList.add('hidden');
+    }
+    function simulateTicketScan(code) {
+      closeSampleTicketModal();
+      closeScanModal();
+      playAircraftSound('chime');
+      syncDemoFlight(code);
+      addCalmMiles(100); // Reward for scanning a boarding pass!
+      alert('Boarding pass scanned successfully! Synced TAROM RO391 to Paris CDG for passenger John Doe (Seat 14B).');
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      updateNetworkStatus();
+      updateClimateIntel(activeFlightCode);
+
       initTheme();
       syncDemoFlight(activeFlightCode);
       loadChecklistState();
