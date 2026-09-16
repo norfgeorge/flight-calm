@@ -1,0 +1,39 @@
+name: flight_copilot_app
+description: "Offline Flight Anxiety Copilot mobile application built with Flutter"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  # Barcode scanning (Apple Vision on iOS, ML Kit on Android)
+  mobile_scanner: ^5.2.3
+  # Hardware Sensors (Accelerometer, Gyroscope, Barometer)
+  sensors_plus: ^5.1.2
+  # Low-latency haptics for eyes-closed breathing
+  vibration: ^2.0.1
+  # Offline Audio Player for Opus / AAC mechanical sounds
+  audioplayers: ^6.0.0
+  # State management & Local Persistence
+  provider: ^6.1.2
+  shared_preferences: ^2.3.5
+  sqflite: ^2.4.1
+  path_provider: ^2.1.5
+  # Networking for gate sync
+  http: ^1.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/sounds/
+    - assets/fallback_bundles/
+    - assets/img/
